@@ -2,7 +2,7 @@ package com.adjointweb.onlineretail.businessdelegates;
 
 import java.util.List;
 
-import com.cloudjini.onlineretailone.entities.Category;
+import com.adjointweb.onlineretailone.entities.Category;
 import com.google.appengine.api.datastore.Key;
 
 public interface CategoryBD {

@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.cache.Cache;
 
-import com.cloudjini.onlineretail.Dao.CF;
-import com.cloudjini.onlineretail.Dao.DAOFactory;
-import com.cloudjini.onlineretailone.entities.Category;
+import com.adjointweb.onlineretail.Dao.CF;
+import com.adjointweb.onlineretail.Dao.DAOFactory;
+import com.adjointweb.onlineretailone.entities.Category;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
