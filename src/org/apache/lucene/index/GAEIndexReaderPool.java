@@ -29,7 +29,8 @@ import java.util.logging.Logger;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import com.cloudjini.onlineretail.Dao.PMF;
+import com.adjointweb.onlineretail.Dao.PMF;
+
 import org.apache.lucene.store.GAEDirectory;
 import org.apache.lucene.store.GAEIndexCategory;
 
