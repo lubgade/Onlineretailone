@@ -25,7 +25,7 @@ import org.apache.gaelucene.auth.GAELuceneOnlineUser;
 import org.apache.gaelucene.auth.GAELuceneOnlineUserManager;
 import org.apache.gaelucene.auth.GAELucenePermission;
 
-import com.cloudjini.onlineretail.Dao.CF;
+import com.adjointweb.onlineretail.Dao.CF;
 
 public class GAELuceneCacheWebHandler {
 

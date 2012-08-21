@@ -33,7 +33,8 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cloudjini.onlineretail.Dao.PMF;
+import com.adjointweb.onlineretail.Dao.PMF;
+
 import org.apache.gaelucene.auth.GAELuceneAuthException;
 import org.apache.gaelucene.auth.GAELuceneOnlineUser;
 import org.apache.gaelucene.auth.GAELuceneOnlineUserManager;
