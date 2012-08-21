@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.cloudjini.onlineretailone.entities.EntityObject;
+import com.adjointweb.onlineretailone.entities.EntityObject;
 
 import java.util.ArrayList;
 import java.util.Map;
