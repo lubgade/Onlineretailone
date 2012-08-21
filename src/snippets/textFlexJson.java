@@ -3,8 +3,8 @@ package snippets;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.cloudjini.onlineretailone.entities.ShoppingCart;
-import com.cloudjini.onlineretailone.entities.ShoppingCartItem;
+import com.adjointweb.onlineretailone.entities.ShoppingCart;
+import com.adjointweb.onlineretailone.entities.ShoppingCartItem;
 import com.google.appengine.api.datastore.KeyFactory;
 
 import flexjson.JSONSerializer;

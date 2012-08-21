@@ -5,9 +5,9 @@ import java.util.List;
 
 
 
-import com.cloudjini.onlineretail.json.JSONHelper;
-import com.cloudjini.onlineretailone.entities.Address;
-import com.cloudjini.onlineretailone.entities.Store;
+import com.adjointweb.onlineretail.json.JSONHelper;
+import com.adjointweb.onlineretailone.entities.Address;
+import com.adjointweb.onlineretailone.entities.Store;
 import com.google.appengine.api.datastore.Email;
 
 public class TestJSONHelper {

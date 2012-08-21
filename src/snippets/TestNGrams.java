@@ -10,7 +10,9 @@ import org.apache.lucene.analysis.ngram.EdgeNGramTokenizer;
 import org.apache.lucene.analysis.ngram.EdgeNGramTokenizer.Side;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.ngram.EdgeNGramTokenFilter;
-import com.cloudjini.onlineretail.search.analysis.position.PositionFilter;
+
+import com.adjointweb.onlineretail.search.analysis.position.PositionFilter;
+
 import org.apache.lucene.analysis.shingle.ShingleFilter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
