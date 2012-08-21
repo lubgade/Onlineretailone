@@ -6,26 +6,26 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 <servlet>
 		<servlet-name>StoreServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.StoreServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.StoreServlet</servlet-class>
 		</servlet>
 <servlet>
 <servlet-name>CategoryServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.CategoryServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.CategoryServlet</servlet-class>
 		</servlet>
 <servlet>	
 <servlet-name>ShoppingCartServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.ShoppingCartServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.ShoppingCartServlet</servlet-class>
 </servlet>
 
 
 <servlet>	
 <servlet-name>ProductServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.ProductServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.ProductServlet</servlet-class>
 </servlet>
 
 <servlet>
 <servlet-name>OrderServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.OrderServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.OrderServlet</servlet-class>
 </servlet>
 
 
@@ -69,7 +69,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 </servlet-mapping>	
 <servlet>
 		<servlet-name>CategoryServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.CategoryServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.CategoryServlet</servlet-class>
 	</servlet>	
 	<servlet-mapping>
 		<servlet-name>CategoryServlet</servlet-name>
@@ -80,7 +80,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 <servlet>
 		<servlet-name>ProductServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.ProductServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.ProductServlet</servlet-class>
 	</servlet>	
 	<servlet-mapping>
 		<servlet-name>ProductServlet</servlet-name>
@@ -98,7 +98,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
   <servlet>
   	    <servlet-name>faceBookLogin</servlet-name>
-    <servlet-class>com.cloudjini.onlineretail.Servlets.FacebookLogin</servlet-class>
+    <servlet-class>com.adjointweb.onlineretail.Servlets.FacebookLogin</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>faceBookLogin</servlet-name>
@@ -112,7 +112,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 	<servlet>
 		<servlet-name>ShoppingListServlet</servlet-name>
-		<servlet-class>com.cloudjini.onlineretail.Servlets.ShoppingListServlet</servlet-class>
+		<servlet-class>com.adjointweb.onlineretail.Servlets.ShoppingListServlet</servlet-class>
 		</servlet>
 
 	<servlet-mapping>
@@ -124,12 +124,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</welcome-file-list>
 	<listener>
 	  	<listener-class>
-	  	com.cloudjini.onlineretail.Servlets.OnlineRetailSessionListener
+	  	com.adjointweb.onlineretail.Servlets.OnlineRetailSessionListener
 	  	</listener-class>
 	</listener>	
 	<listener>
 	  	<listener-class>
-		com.cloudjini.onlineretail.Servlets.OnlineRetailContextListener
+		com.adjointweb.onlineretail.Servlets.OnlineRetailContextListener
 		</listener-class>
 	</listener>	
 </web-app>
