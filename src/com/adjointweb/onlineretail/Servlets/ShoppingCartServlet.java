@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import com.adjointweb.onlineretail.Dao.DAOFactory;
 import com.adjointweb.onlineretail.Dao.ShoppingCartDAO;
-import com.cloudjini.onlineretailone.entities.ShoppingCart;
-import com.cloudjini.onlineretailone.entities.ShoppingCartItem;
+import com.adjointweb.onlineretailone.entities.ShoppingCart;
+import com.adjointweb.onlineretailone.entities.ShoppingCartItem;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;

@@ -20,7 +20,7 @@ import org.json.simple.JSONObject;
 import com.adjointweb.onlineretail.Dao.DAOFactory;
 import com.adjointweb.onlineretail.Dao.ProductDAO;
 import com.adjointweb.onlineretail.Dao.SearchDAO;
-import com.cloudjini.onlineretailone.entities.Product;
+import com.adjointweb.onlineretailone.entities.Product;
 
 
 @SuppressWarnings("serial")

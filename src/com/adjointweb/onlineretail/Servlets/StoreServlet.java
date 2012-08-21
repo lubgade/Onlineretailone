@@ -42,8 +42,8 @@ import org.json.simple.JSONValue;
 
 import com.adjointweb.onlineretail.Dao.DAOFactory;
 import com.adjointweb.onlineretail.Dao.StoreDAO;
-import com.cloudjini.onlineretailone.entities.Store;
-import com.cloudjini.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.Store;
 import com.google.appengine.api.backends.BackendServiceFactory;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.Queue;

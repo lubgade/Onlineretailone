@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.adjointweb.onlineretail.Dao.DAOFactory;
 import com.adjointweb.onlineretail.Dao.PartyDAO;
-import com.cloudjini.onlineretailone.entities.Party;
+import com.adjointweb.onlineretailone.entities.Party;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;

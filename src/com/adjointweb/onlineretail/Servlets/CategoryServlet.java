@@ -18,9 +18,9 @@ import org.json.simple.JSONObject;
 
 import com.adjointweb.onlineretail.Dao.CategoryDAO;
 import com.adjointweb.onlineretail.Dao.DAOFactory;
-import com.cloudjini.onlineretailone.entities.Category;
-import com.cloudjini.onlineretailone.entities.Product;
-import com.cloudjini.onlineretailone.entities.SubCategory;
+import com.adjointweb.onlineretailone.entities.Category;
+import com.adjointweb.onlineretailone.entities.Product;
+import com.adjointweb.onlineretailone.entities.SubCategory;
 import com.google.appengine.api.datastore.Key;
 import com.liferay.util.ParamUtil;
 
