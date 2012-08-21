@@ -22,7 +22,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import com.cloudjini.onlineretail.Dao.PMF;
+import com.adjointweb.onlineretail.Dao.PMF;
 
 public class GAEIndexCategoryJDO {
   public static void saveOrUpdate(String category, Long version, Long lastModified) {

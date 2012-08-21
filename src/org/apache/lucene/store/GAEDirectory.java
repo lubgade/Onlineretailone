@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import com.cloudjini.onlineretail.Dao.PMF;
+import com.adjointweb.onlineretail.Dao.PMF;
 
 /**
  * A read-only google datastore based {@link Directory} implementation.
