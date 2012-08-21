@@ -7,10 +7,10 @@ package com.adjointweb.onlineretail.Dao;
 import java.util.List;
 import java.util.Set;
 
-import com.cloudjini.onlineretailone.entities.Product;
+import com.adjointweb.onlineretailone.entities.Category;
+import com.adjointweb.onlineretailone.entities.Product;
 
 
-import com.cloudjini.onlineretailone.entities.Category;
 import com.google.appengine.api.datastore.Key;
 
 

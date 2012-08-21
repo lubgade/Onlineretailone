@@ -9,9 +9,9 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.cloudjini.onlineretail.Servlets.StoreServlet;
-import com.cloudjini.onlineretailone.entities.Category;
-import com.cloudjini.onlineretailone.entities.ShoppingList;
+import com.adjointweb.onlineretail.Servlets.StoreServlet;
+import com.adjointweb.onlineretailone.entities.Category;
+import com.adjointweb.onlineretailone.entities.ShoppingList;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 

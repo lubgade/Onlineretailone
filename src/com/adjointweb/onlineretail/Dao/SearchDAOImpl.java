@@ -12,8 +12,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.cloudjini.onlineretailone.entities.Shingle;
-import com.cloudjini.onlineretailone.entities.Store;
+import com.adjointweb.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.Store;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 

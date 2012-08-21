@@ -2,10 +2,7 @@
 
 import java.util.List;
 
-import com.cloudjini.onlineretailone.entities.Order;
-/*
- * Author : Leena
- */
+import com.adjointweb.onlineretailone.entities.Order;
 
 public interface OrderDAO {
 	void createOrder(Order order);

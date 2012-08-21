@@ -3,7 +3,7 @@ package com.adjointweb.onlineretail.Dao;
 import java.util.List;
 
 
-import com.cloudjini.onlineretailone.entities.Product;
+import com.adjointweb.onlineretailone.entities.Product;
 
 
 public interface ProductDAO {

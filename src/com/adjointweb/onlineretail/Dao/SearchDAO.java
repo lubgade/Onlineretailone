@@ -3,7 +3,7 @@ package com.adjointweb.onlineretail.Dao;
 import java.util.List;
 import java.util.Set;
 
-import com.cloudjini.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.Shingle;
 
 public interface SearchDAO {
 

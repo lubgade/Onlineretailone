@@ -1,6 +1,6 @@
 package com.adjointweb.onlineretail.Dao;
 
-import com.cloudjini.onlineretailone.entities.Party;
+import com.adjointweb.onlineretailone.entities.Party;
 import com.google.appengine.api.datastore.Key;
 
 public interface PartyDAO {

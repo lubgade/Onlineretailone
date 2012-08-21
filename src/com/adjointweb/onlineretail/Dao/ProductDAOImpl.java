@@ -16,8 +16,8 @@ import javax.jdo.Transaction;
 
 import org.datanucleus.store.appengine.query.JDOCursorHelper;
 
-import com.cloudjini.onlineretailone.entities.Product;
-import com.cloudjini.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.Product;
+import com.adjointweb.onlineretailone.entities.Shingle;
 import com.google.appengine.api.datastore.DatastoreNeedIndexException;
 import com.google.appengine.api.datastore.DatastoreTimeoutException;
 import com.google.appengine.api.datastore.Key;

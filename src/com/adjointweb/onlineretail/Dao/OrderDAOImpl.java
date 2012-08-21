@@ -10,8 +10,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.cloudjini.onlineretailone.entities.Order;
-import com.cloudjini.onlineretailone.entities.Product;
+import com.adjointweb.onlineretailone.entities.Order;
+import com.adjointweb.onlineretailone.entities.Product;
 import com.google.appengine.api.datastore.DatastoreNeedIndexException;
 import com.google.appengine.api.datastore.DatastoreTimeoutException;
 

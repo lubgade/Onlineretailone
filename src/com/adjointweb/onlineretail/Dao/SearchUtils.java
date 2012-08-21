@@ -22,9 +22,10 @@ import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.ngram.EdgeNGramTokenizer;
 import org.apache.lucene.analysis.ngram.EdgeNGramTokenFilter;
 import org.apache.lucene.analysis.ngram.EdgeNGramTokenizer.Side;
-import com.cloudjini.onlineretail.search.analysis.position.PositionFilter;
 
-import com.cloudjini.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretail.search.analysis.position.PositionFilter;
+import com.adjointweb.onlineretailone.entities.Shingle;
+
 
 import java.util.Arrays;
 

@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.apache.lucene.index.CorruptIndexException;
 
-import com.cloudjini.onlineretailone.entities.Shingle;
-import com.cloudjini.onlineretailone.entities.Store;
+import com.adjointweb.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.Store;
 import com.google.appengine.api.datastore.Key;
 
 public interface StoreDAO {

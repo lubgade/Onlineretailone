@@ -12,9 +12,9 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 
-import com.cloudjini.onlineretailone.entities.EntityObject;
-import com.cloudjini.onlineretailone.entities.Store;
-import com.cloudjini.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.EntityObject;
+import com.adjointweb.onlineretailone.entities.Shingle;
+import com.adjointweb.onlineretailone.entities.Store;
 import com.google.appengine.api.datastore.DatastoreNeedIndexException;
 import com.google.appengine.api.datastore.DatastoreTimeoutException;
 

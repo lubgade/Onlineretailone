@@ -1,7 +1,7 @@
 package com.adjointweb.onlineretail.Dao;
 
-import com.cloudjini.onlineretailone.entities.ShoppingCart;
-import com.cloudjini.onlineretailone.entities.ShoppingCartItem;
+import com.adjointweb.onlineretailone.entities.ShoppingCart;
+import com.adjointweb.onlineretailone.entities.ShoppingCartItem;
 
 public interface ShoppingCartDAO {
 	ShoppingCart createShoppingCart(ShoppingCart cart);

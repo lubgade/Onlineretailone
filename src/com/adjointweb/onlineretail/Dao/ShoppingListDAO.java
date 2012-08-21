@@ -3,8 +3,8 @@ package com.adjointweb.onlineretail.Dao;
 import java.util.List;
 
 
-import com.cloudjini.onlineretailone.entities.Category;
-import com.cloudjini.onlineretailone.entities.ShoppingList;
+import com.adjointweb.onlineretailone.entities.Category;
+import com.adjointweb.onlineretailone.entities.ShoppingList;
 import com.google.appengine.api.datastore.Key;
 
 

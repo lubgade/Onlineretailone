@@ -8,8 +8,8 @@ import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import com.cloudjini.onlineretailone.entities.ShoppingCart;
-import com.cloudjini.onlineretailone.entities.ShoppingCartItem;
+import com.adjointweb.onlineretailone.entities.ShoppingCart;
+import com.adjointweb.onlineretailone.entities.ShoppingCartItem;
 import com.google.appengine.api.datastore.DatastoreNeedIndexException;
 import com.google.appengine.api.datastore.DatastoreTimeoutException;
 

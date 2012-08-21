@@ -8,8 +8,8 @@ import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import com.cloudjini.onlineretailone.entities.Order;
-import com.cloudjini.onlineretailone.entities.Party;
+import com.adjointweb.onlineretailone.entities.Order;
+import com.adjointweb.onlineretailone.entities.Party;
 import com.google.appengine.api.datastore.Key;
 
 public class PartyDAOImpl implements PartyDAO {
