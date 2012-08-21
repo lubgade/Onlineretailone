@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+<servlet>
+		<servlet-name>StoreServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.StoreServlet</servlet-class>
+		</servlet>
+<servlet>
+<servlet-name>CategoryServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.CategoryServlet</servlet-class>
+		</servlet>
+<servlet>	
+<servlet-name>ShoppingCartServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.ShoppingCartServlet</servlet-class>
+</servlet>
+
+
+<servlet>	
+<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.ProductServlet</servlet-class>
+</servlet>
+
+<servlet>
+<servlet-name>OrderServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.OrderServlet</servlet-class>
+</servlet>
+
+
+<servlet-mapping>
+	<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/order</url-pattern>
+</servlet-mapping>
+
+
+	<servlet-mapping>
+	<servlet-name>ShoppingCartServlet</servlet-name>
+		<url-pattern>/cart</url-pattern>
+</servlet-mapping>
+
+
+
+
+
+<servlet-mapping>
+	<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/product</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>CategoryServlet</servlet-name>
+		<url-pattern>/category</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+		<servlet-name>StoreServlet</servlet-name>
+		<url-pattern>/store</url-pattern>
+		
+	</servlet-mapping>
+<servlet>
+    <display-name>Remote API Servlet</display-name>
+    <servlet-name>RemoteApiServlet</servlet-name>
+    <servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>RemoteApiServlet</servlet-name>
+    <url-pattern>/remote_api</url-pattern>
+</servlet-mapping>	
+<servlet>
+		<servlet-name>CategoryServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.CategoryServlet</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>CategoryServlet</servlet-name>
+		<url-pattern>/category</url-pattern>
+	</servlet-mapping>
+
+
+
+<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.ProductServlet</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/product</url-pattern>
+	</servlet-mapping>
+
+	  <servlet>
+    <servlet-name>GAELuceneAdminServlet</servlet-name>
+    <servlet-class>org.apache.gaelucene.dashboard.GAELuceneAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GAELuceneAdminServlet</servlet-name>
+    <url-pattern>/gaelucenedashboard/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+  	    <servlet-name>faceBookLogin</servlet-name>
+    <servlet-class>com.cloudjini.onlineretail.Servlets.FacebookLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>faceBookLogin</servlet-name>
+    <url-pattern>/faceBookLogin</url-pattern>
+  </servlet-mapping>
+	  <servlet-mapping>
+    <servlet-name>faceBookLogin</servlet-name>
+    <url-pattern>/faceBooklogin</url-pattern>
+  </servlet-mapping>
+	
+
+	<servlet>
+		<servlet-name>ShoppingListServlet</servlet-name>
+		<servlet-class>com.cloudjini.onlineretail.Servlets.ShoppingListServlet</servlet-class>
+		</servlet>
+
+	<servlet-mapping>
+	<servlet-name>ShoppingListServlet</servlet-name>
+		<url-pattern>/shoppingList</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<listener>
+	  	<listener-class>
+	  	com.cloudjini.onlineretail.Servlets.OnlineRetailSessionListener
+	  	</listener-class>
+	</listener>	
+	<listener>
+	  	<listener-class>
+		com.cloudjini.onlineretail.Servlets.OnlineRetailContextListener
+		</listener-class>
+	</listener>	
+</web-app>

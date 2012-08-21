@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Retail Operations</title>
+<link type="text/css" href="css/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/master.css" />
+<script type="text/javascript"
+	src="script/jquery-1.6.min.js"></script>
+<script type="text/javascript" src='script/jquery.layout-latest.js'> </script>
+<script type="text/javascript"
+	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-1.3.0.latest.js'></script>
+
+<script type='text/javascript'>
+$(document).ready(function () {
+
+	$('body').layout({ applyDefaultStyles: true,
+		closable:false, resizable:false, slidable:false,
+		spacing_open:0
+		});
+	// Tabs
+
+	var $tabs = $('#tabscollection1').tabs();
+	$('#edit-link').click(function(){
+		alert("heel");
+		$tabs.tabs('select',1);
+		return false;
+	});
+	
+	$('#add').click(function(){
+		$tabs.tabs('select',1);
+		storeListViewModel.store(new store());
+		return false;
+		
+	});
+	
+	$("button").button();
+	$( "#check" ).button();
+	
+	
+
+});
+</script>
+
+</HEAD>
+<BODY>
+
+	<DIV class="ui-layout-center">
+
+		<div id="tabscollection1">
+			<ul>
+				<li><a href="#tabs-1">Search Store </a></li>
+				<li><a href="#tabs-2">Add or Edit Store </a></li>
+				
+			</ul>
+			<div id="tabs-1">
+			<form name="searchStore">
+			<input data-bind="value: query" id="searchinput" type="search">
+		 	<button data-bind="click:search">Search</button> <button id="add">Add</button> 
+			</form>
+			<table>
+    <thead><tr>
+        <th>ID</th><th>Store name</th><th>Store Description</th><th> Manager Name</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Country</th>
+        <th>Phones</th>
+        
+    </tr></thead>
+    <tbody data-bind="template: {name:'dataTemplate'}"></tbody>
+</table>
+
+<script type="text/x-jquery-tmpl" id="dataTemplate">
+{{each(i, store) stores}}
+    <tr>
+		<td > <a id="edit-link" href="#" data-bind="click:function(){ storeListViewModel.edit(store)} ">Edit</a></td>
+        <td data-bind="text:storeName"></td>
+        <td data-bind="text:storeDesc"></td>
+ 		<td data-bind="text:managerName"></td>
+		{{each(j, address) addresses}}
+ 		<td data-bind="text:addressline1"></td>
+		<td data-bind="text:addressline2"></td>
+		<td data-bind="text:city"></td>
+		<td data-bind="text:state"></td>
+		<td data-bind="text:zip"></td>
+		<td data-bind="text:country"></td>
+		{{/each}} 
+		<td><table>
+			{{each(k,number) phones}}
+			<tr>
+			<td data-bind="text:number"></td>
+			</tr>
+			{{/each}} 
+		</table></td>
+      </tr>
+{{/each}} 
+
+</script>
+			</div>
+			
+			<div id="tabs-2">
+			
+		<div id="store" data-bind='template:{name: "storeTemplate",data:store}'> </div>
+
+		<script type="text/html" id="storeTemplate">			
+ 
+				<form id="storeform"  name="createStore" >
+				
+					<div class="logo">
+						<legend> Basic Store Details</legend>
+						<fieldset>
+							<label class="logo" for="storeName">Store Name: <em>*</em>
+							</label><br> <input type="text" id="storeName" name="storeName" class="logo" required="required"
+								data-bind="value: storeName" placeholder="Store Name" />
+							<br> <label class="logo" for="storeDesc">Store
+								Description: <em>*</em>
+							</label><br> <input  type="text" id="storeDesc"  name="storeDesc" class="logo" required="required"
+								data-bind="value: storeDesc"
+								placeholder="Store Description" /><br> 
+							<label class="logo" for="manager">Manager Name: <em>*</em>
+							</label><br> <input type="text" id="managerName"  name="managerName" class="logo" required="required"
+								data-bind="value: managerName" placeholder="Manager Name" /><br>
+
+							<label class="logo" for="email">Store Email: <em>*</em>
+
+							</label><br>
+							
+<table>
+ {{each(i, emailaddress) emails}}
+		<tr><td>
+		<input class="logo" id="emailadress" name="emailaddress"  required="required" type="email" data-bind="value: emailaddress" placeholder="Store Email" />
+		</td>
+<td>
+<a href="#" data-bind="click: function() { storeListViewModel.removeEmail(emails,i) }">Delete</a>
+</td>
+</tr>	
+{{/each}} 	
+<tr><td><a href="#" class="topheader" id="add"  data-bind="click: function(){storeListViewModel.addEmail(emails)}">Add</a>
+</td></tr>
+
+
+</table>
+<label class="logo" for="phone">Store Phone: <em>*</em>
+							 
+							</label><br>
+<table>
+{{each(i, number) phones}}							
+<tr><td>
+<input id="number" name="number" class="logo" required="required"
+								maxlength="12" type="tel" data-bind="value: number"
+								placeholder="Store Phone number" /></td>
+<td>
+<a href="#" data-bind="click: function() { storeListViewModel.removePhone( phones,i) }">Delete</a>
+</td>
+</tr>
+{{/each}}
+<tr><td>
+<a href="#" class="topheader" id="add"  data-bind="click: function() { storeListViewModel.addPhone(phones) }">Add
+							</a>
+</td></tr>
+</table>
+							 <label
+								class="logo" for="distance">Delivery Distance: <em>*</em>
+							</label><br> <input class="logo" id="distance" name="distance" type="number" min="0" max="10"
+								step="1" value="1" data-bind="value: deliveryDistance"
+								placeholder="Delivery Distance" /><br>
+
+						</fieldset>
+					</div>
+					{{each(i, address) addresses}}
+					<div class="logo">
+						<legend> Address</legend>
+						<fieldset>
+							<ul>
+								<li><label for="Address Line1">Address Line 1: <em>*</em>
+								</label> <input id="addressline1" name="addressline1" required="required" data-bind="value: addressline1"
+									placeholder="Street address 1" /><br></li>
+								<li><label for="Address Line2">Address Line 2: <em>*</em>
+								</label> <input id="addressline1" name="addressline1" required="required" data-bind="value: addressline2"
+									placeholder="Street address 2" /><br></li>
+								<li><label for="city">City: <em>*</em>
+								</label> <input id="city" name="city" required="required" data-bind="value:city"
+									placeholder="City" /><br></li>
+								<li><label for="state">State: <em>*</em>
+								</label> <input id="state" name="state" required="required" data-bind="value: state"
+									placeholder="State" /><br></li>
+								<li><label for="zip">Postal Code: <em>*</em>
+								</label> <input id="zip" name="zip" type="number" size="6" max="999999" maxlength="5"
+									required="required" data-bind="value: zip"
+									placeholder="Postal Code" /><br></li>
+								<li><label for="Country">Country: <em>*</em>
+								</label> <input id="country" name="country" value="India" required="required"
+									data-bind="value: country" placeholder="Country" /><br>
+								</li>
+							</ul>
+						</fieldset>
+					</div>
+					{{/each}}
+
+					<div  class="logo">
+					<legend> Additional Store Parameters</legend>
+					<fieldset>
+					<label> is Store Payment Allowed ?</label>
+					<input id="check1"  name="isStorePaymentallowed" type="checkbox" data-bind="value: allowStorePayment" ><br>
+					<label> Order Modification Allowed ?</label>
+					<input id="check2" name="ordermodificationallowed" type="checkbox" data-bind="value: allowOrderModification" ><br>
+					<label> Multi Stores ?</label>
+					<input id="check2" name="multistore" type="checkbox" data-bind="value: multipleStores" ><br>
+
+					</fieldset>
+					</div>		
+					<div class="wrap"></div>
+
+				</form>
+</script>
+			
+
+						<!-- <button data-bind="click: addStore" > Add Store </button>  -->
+				<button data-bind="click:save">Save</button>
+		
+		</div>
+		</div>
+		</div>
+	<DIV class="ui-layout-north">Retail Store Operations</DIV>
+
+	<DIV class="ui-layout-south">
+		<div id="footer2" class="footer">Footer</div>
+	</DIV>
+
+	<DIV class="ui-layout-east"></DIV>
+
+	<DIV class="ui-layout-west">
+		<a href="#">Store Operations </a>
+
+	</div>
+
+	<script type="text/javascript">
+
+function store (id, storeName,storeDesc) {
+		this.id = id;
+		this.storeName =storeName;
+		this.storeDesc = storeDesc;
+		this.managerName="";
+		this.emails = ko.observableArray([{emailaddress:""}]);
+		this.phones=  ko.observableArray([{number:""}]);
+		this.deliveryDistance="";
+		this.addresses=[{addressline1:"", addressline2:"",city:"",state:"",zip:"", country:""}];
+		this.allowStorePayment=false; 
+		this.allowOrderModification=false; 
+		this.multipleStores=false;
+}
+
+function address(){
+	this.addressline1="";
+	this.addressline2="";
+	this.city= "";
+	this.state= "";
+	this.zip="";
+	this.country="";
+}
+
+var  storeListViewModel = {
+	
+	stores: new ko.observableArray( [new store()]),
+	
+	
+	store: ko.observable( new store()),
+	
+	/*remove:	function() { this.stores.remove(this);}*/
+	query:  ko.observable(),
+	
+	search: function(){
+		   var mydata = ko.toJS({query:this.query,action:"search"});
+		  $.ajax({
+		    	url:"/store",
+		    	dataType: "json",
+	            data: mydata,
+	            type: "GET",
+	            success: function(resp) {
+	            	alert(resp);
+	            	if(resp){
+	        			//getting the data from the response object
+	        			data=resp.data;
+	        		}
+	        		//creating the html content
+	        		var htm='';
+	        		if(data.length > 0){
+	        			storeListViewModel.stores.removeAll();
+	        			storeListViewModel.stores.valueHasMutated();
+	        			for (var i=0;i<data.length;i++){
+	        				storedata = new store(data[i].id, data[i].storeName, data[i].storeDesc);
+	        				storedata.managerName = data[i].managerName;
+	        				storedata.deliveryDistance = data[i].deliveryDistance;
+	        				storedata.emails(data[i].emails);
+	        				storedata.phones(data[i].phones);
+	        				storedata.addresses = data[i].addresses;
+							storedata.allowStorePayment =data[i].allowStorePayment;
+	        				storedata.allowStoreModification = data[i].allowStoreModification;
+	        				storedata.multipleStores = data[i].multipleStores;
+	        				storeListViewModel.stores.push( storedata )
+	        				
+	        			}
+	        		}
+	            },
+		  		error:function(e){
+		  			alert("error : "+ e);
+		  		}
+	        });
+		
+	},
+	
+ 	
+ 	addEmail: function(emails){ 
+ 		
+ 		emails.push({emailaddress:""});
+ 		
+ 		},
+    
+ 	addPhone: function(phones){
+ 		phones.push({number:""});
+ 	} ,
+ 	
+ 	removePhone: function (phones,phone) {
+ 		phones.splice(phone,1);
+        
+    },
+    removeEmail: function (emails, email) {
+    	emails.splice(email, 1);	
+    },
+    edit: function(storeobject){
+    	
+    	storeListViewModel.store(storeobject);
+    },
+   	save:function() {
+	   var mydata = ko.toJSON({store:this.store,action:"PUT"});
+	  /* var param = new Array(); */
+	  alert(mydata);
+	    $.ajax({
+	    	url:"/store",
+            data: "JSON="+mydata+"&action=PUT",
+            type: "post",
+            success: function(result) { 
+        		alert(result);
+        		storeListViewModel.store(new store());
+                }
+        });
+    }  
+ };
+
+
+ko.applyBindings(storeListViewModel);
+
+
+
+</script>
+
+</BODY>
+
+</html>

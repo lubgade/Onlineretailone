@@ -1,0 +1,635 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head id="script">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Retail Operations - Super Category Manager</title>
+<link type="text/css" href="css/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/master.css" />
+<script type="text/javascript"
+	src="script/jquery-1.6.min.js"></script>
+<script type="text/javascript"
+	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-1.3.0.latest.js'></script>
+<script type='text/javascript' src='script/jquery.validate.min.js'></script>
+<script type='text/javascript' src='script/knockout.simpleGrid.js'></script>
+<script type='text/javascript' src='script/knockout.productGrid.js'></script>
+
+<script type='text/javascript' src='script/json2.js'></script>
+<script type='text/javascript' src='script/jshashtable-2.1.js'></script>
+
+<script type='text/javascript' src='script/jquery.numberformatter-1.2.2.jsmin.js'></script>
+<script type='text/javascript' src='script/jquery.ui.datepicker-en-GB.js'></script>
+<script type='text/javascript' src='script/product.js'></script>
+
+<script type='text/javascript' >
+$(function() {
+
+});
+
+	
+
+
+</script>
+
+<style>
+#div_left{
+	height:35em;
+/*	width: 15em;*/
+	float:left;
+	border-style:groove;
+	padding-right: 4px;
+	margin-right: 10px;
+	border-color : #8C2300;	
+
+	}
+	
+#div_right{
+	/*width: 35em; */
+	/*margin-left:16em;*/
+	border-style:groove;	
+	border-color : #8C2300;
+	height:35em;
+	float:left;
+	
+	}		
+
+#container{
+	border:#663333 solid 1px;
+	background:#90BADE;
+	/*height:40em;
+	width:63em; */
+	padding-top:2em;
+	padding-left:2em;
+	margin-left:0em;
+}
+#prodlist{
+	margin-top: 5px;
+		border-style:groove;
+		margin-bottom:0px;
+		margin-left:6px;
+		margin-right:2px;  
+		padding:0px;
+}
+#prodname{
+	width:100%;
+	background-color: #663333;
+	border-style:none
+}
+.search{
+	border:#663333 solid 1px;
+	width:16em;
+	margin-left:1em;
+	margin-right:auto;
+	background:  url(css/images/search.png) top right no-repeat;
+	float:left;
+	}
+	
+.add{
+	margin-top:0.4em
+		}
+	
+.prodname{
+	font-family:"Franklin Gothic Heavy";
+	font-size:larger;
+	font-style:italic;
+	font-weight:bold;
+	text-align:justify;
+	color: white; 
+	 
+		
+	}
+	
+.save{
+	background-color: #663333;
+}	
+.itemstable{
+	width:100%;
+	margin-top:15px;
+	border:solid 2px #8C2300;
+	
+	
+	}
+	.itemstable tr th {
+	border :solid 2px #8C2300;
+	font-size:0.75em;
+	font-weight:600;
+	margin-top:5px;
+	
+	}
+	.itemstable tr td {	
+		border :solid 2px #8C2300;
+		background-color:#FFDD66
+	
+	}
+	
+.prop{
+	width:30%;
+}	
+	
+.propdesc{
+	width:70%;
+}	
+
+.props{
+	width:30%;
+    background:#FFFFFF; 
+}
+
+.propsdesc{
+	width:70%;
+	background:#FFFFFF;
+}
+.bothclear{
+	clear: both;
+}		
+</style>
+</head>
+<body>
+<div id="tabscollection1">
+	<ul>
+	<li>
+	<a href="#product-tab">Product Master </a>
+	</li>
+	<li>
+	<a href="#category-tab">Category Membership </a>
+	</li>
+	</ul>
+<div id="product-tab">	
+<h2 style="text-align:center;margin-bottom:0;">Products</h2>
+<div id="container" >	
+<div id="div_left" >
+	
+	<div>
+		<input id="search" class="search" placeholder="Search" type="search"/>
+	</div>
+	<div>
+	<Button id="add" class="add" >Add</Button>
+	</div> <!--end of button add -->
+	<div id="prodlist" > 
+	<ul data-bind="template:{name:'listTemplate',data:productListViewModel}">	
+		<span onclick="text:productName" ></span>	
+	</ul>
+	</div> <!-- end of div prodlist-->
+</div><!-- end of div_left -->
+
+<div id="div_right">
+	<div id="prodname">
+	
+    	<center><span data-bind="text:productListViewModel.currentproduct().productName" class="prodname"></span></center>
+    </div> <!--end of div_prodname-->
+    <div style="float:right"> <Button id = "save" ></Button></div>	
+	<form id="productForm"  action="#" >	
+	<table border="2">
+	<tbody data-bind='template: { name: "productTemplate", data:productListViewModel.currentproduct, afterRender:jqueryuilogic}'></tbody>
+	</table>
+	</form>	
+</div><!--end of div_right -->
+<div class="wrap"></div>
+</div><!-- end of container-->
+ 
+
+<!--listTemplate-->
+<script type="text/html" id="listTemplate">	
+	{{each(j,product) products() }}	
+	<li data-bind="click:function(){setCurrentProd(j);}">
+   	<a data-bind="text:productName" href="#"> </a> <button data-bind="click:function(){deleteProd(product)}"> X </button>
+	</li>
+	{{/each}}
+
+	<a data-bind="click:function(){ productListViewModel.getPreviousPage(); },visible:PAGE_NUMBER() > 1" href="#">Previous</a>
+	{{each(i) pageNumbers}}
+	{{if PAGE_NUMBER() == i+1}}
+		${i+1}
+	{{else}}
+	<a data-bind="click:function(){ productListViewModel.getPage(i+1); }" href="#">${i+1}</a>
+	{{/if}}
+	{{/each}}
+	<a data-bind="click:function(){ productListViewModel.getNextPage(); },visible:next_page_exists" href="#">Next</a>
+	
+</script>
+
+<!--productTemplate-->
+<script type="text/x-jquery-tmpl" id="productTemplate">
+	<tr>
+		<td class="props">Product Name</td>
+		<td class="propsdesc">
+			<input type="text"  name="productName" size="45em" data-bind="value:productName,valueupdate:'afterkeydown'"/>
+			 </td>
+	</tr>
+		<tr>		 
+		<td class="props" size="30%">Product Desc</td>
+		<td class="propsdesc">
+			<input type="text" name="prodDesc"  size="45em" data-bind="value:prodDesc"/>
+			 </td>
+		</tr>
+		<tr>	 
+		<td class="props">Brand Name</td>
+		<td class="propsdesc">
+			<input type="text" name="brandName" size="45em" data-bind="value:brandName"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Manufacturer Name</td>
+		<td class="propsdesc">
+			<input type="text" name="manufactName" size="45em" data-bind="value:manufactName"/>
+			 </td>	 	 
+	</tr>
+	
+	<tr>	
+		<td class="props">MRP</td>
+		<td class="propsdesc">
+			<input  id="mrp"  name="mrp" size="10em" type="text" class="numberformat"  data-bind="value:mrp"/>
+	    </td>
+	</tr>
+	<tr>	 
+		<td class="props">UOM</td>
+		<td class="propsdesc">
+			<input  type="text" name="UOM" size="45em" data-bind="value:UOM"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Cost</td>
+		<td class="propsdesc">
+			<input id="cost" class="numberformat" type="text" name="cost" size="3em" data-bind="value:cost"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Selling Price</td>
+		<td class="propsdesc">
+			<input id="sellprice" class="numberformat"  name="sellPrice" type="text" size="3em"  data-bind="value:sellPrice"/>
+			 </td>	 	 
+	</tr>
+	
+	<tr>	 
+		
+		<td class="props">Small Img URL</td>
+		<td class="propsdesc">
+			<input name="smallImgUrl" size="45em" data-bind="value:smallImgUrl"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Medium Img URL</td>
+		<td class="propsdesc">
+			<input name="mdmImgUrl" size="45em" data-bind="value:mdmImgUrl"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Large Img URL</td>
+		<td class="propsdesc">
+			<input name="lrgImgUrl" size="45em" data-bind="value:lrgImgUrl"/>
+			 </td>	 	 
+	</tr>
+	<tr>
+	<td> Manufacture Date</td>
+	<td>
+		<input id="manufactDate" name="manufactDate" size="45em" data-bind="value:manufactDate"/>
+	</td>
+	</tr>	
+<tr>
+	<td> Expiry Date</td>
+	<td>
+		<input id="expiryDate" name="expiryDate" size="45em" data-bind="value:expiryDate"/>
+	</td>
+	</tr>		
+	
+	{{each(j,img) prodImgs}}
+    <tr class="addimages">	    	    	
+		<td class="props">Product Images</td>
+		<td class="propsdesc">				 		
+			<input name="images1" id="images1" type="text" placehoder="Enter Image Name" size="45em" data-bind="value: img, valueupdate:'afterkeydown'"/>
+			<Button data-bind="click:function () {deleteimage(img)}">Delete</Button>
+		</td>	 
+	</tr>
+	{{/each}}
+	<tr><td><Button class="addimagesbutton" data-bind="click:addimages">Add Images</Button></td></td>	
+</script>
+</div> <!--  Product Tab End -->
+<div id="category-tab">
+
+</div>	<!--  Category Tab End -->
+
+</div> <!--  End of Tabs Collection -->
+<div id="messageBox">
+</div>	
+
+</body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head id="script">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Retail Operations - Super Category Manager</title>
+<link type="text/css" href="css/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/master.css" />
+<script type="text/javascript"
+	src="script/jquery-1.6.min.js"></script>
+<script type="text/javascript"
+	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-1.3.0.latest.js'></script>
+<script type='text/javascript' src='script/jquery.validate.min.js'></script>
+<script type='text/javascript' src='script/knockout.simpleGrid.js'></script>
+<script type='text/javascript' src='script/knockout.productGrid.js'></script>
+
+<script type='text/javascript' src='script/json2.js'></script>
+<script type='text/javascript' src='script/jshashtable-2.1.js'></script>
+
+<script type='text/javascript' src='script/jquery.numberformatter-1.2.2.jsmin.js'></script>
+<script type='text/javascript' src='script/jquery.ui.datepicker-en-GB.js'></script>
+<script type='text/javascript' src='script/product.js'></script>
+
+<script type='text/javascript' >
+$(function() {
+
+});
+
+	
+
+
+</script>
+
+<style>
+#div_left{
+	height:35em;
+	width: 15em;
+	float:left;
+	border-style:groove;
+	padding-right: 4px;
+	margin-right: 10px;
+	border-color : #8C2300;	
+
+	}
+	
+#div_right{
+	width: 35em;
+	/*margin-left:16em;*/
+	border-style:groove;	
+	border-color : #8C2300;
+	height:35em;
+	float:left;
+	
+	}		
+
+#container{
+	border:#663333 solid 1px;
+	background:#90BADE;
+	height:40em;
+	width:63em;
+	padding-top:2em;
+	padding-left:2em;
+	margin-left:0em;
+}
+#prodlist{
+	margin-top: 5px;
+		border-style:groove;
+		margin-bottom:0px;
+		margin-left:6px;
+		margin-right:2px;  
+		padding:0px;
+}
+#prodname{
+	width:100%;
+	background-color: #663333;
+	border-style:none
+}
+.search{
+	border:#663333 solid 1px;
+	width:16em;
+	margin-left:1em;
+	margin-right:auto;
+	background:  url(css/images/search.png) top right no-repeat;
+	float:left;
+	}
+	
+.add{
+	margin-top:0.4em
+		}
+	
+.prodname{
+	font-family:"Franklin Gothic Heavy";
+	font-size:larger;
+	font-style:italic;
+	font-weight:bold;
+	text-align:justify;
+	color: white; 
+	 
+		
+	}
+	
+.save{
+	background-color: #663333;
+}	
+.itemstable{
+	width:100%;
+	margin-top:15px;
+	border:solid 2px #8C2300;
+	
+	
+	}
+	.itemstable tr th {
+	border :solid 2px #8C2300;
+	font-size:0.75em;
+	font-weight:600;
+	margin-top:5px;
+	
+	}
+	.itemstable tr td {	
+		border :solid 2px #8C2300;
+		background-color:#FFDD66
+	
+	}
+	
+.prop{
+	width:30%;
+}	
+	
+.propdesc{
+	width:70%;
+}	
+
+.props{
+	width:30%;
+    background:#FFFFFF; 
+}
+
+.propsdesc{
+	width:70%;
+	background:#FFFFFF;
+}
+.bothclear{
+	clear: both;
+}		
+</style>
+</head>
+<body>
+<div id="tabscollection1">
+	<ul>
+	<li>
+	<a href="#product-tab">Product Master </a>
+	</li>
+	<li>
+	<a href="#category-tab">Category Membership </a>
+	</li>
+	</ul>
+<div id="product-tab">	
+<h2 style="text-align:center;margin-bottom:0;">Products</h2>
+<div id="container" >	
+<div id="div_left" >
+	
+	<div>
+		<input id="search" class="search" placeholder="Search" type="search"/>
+	</div>
+	<div>
+	<Button id="add" class="add" >Add</Button>
+	</div> <!--end of button add -->
+	<div id="prodlist" > 
+	<ul data-bind="template:{name:'listTemplate',data:productListViewModel}">	
+		<span onclick="text:productName" ></span>	
+	</ul>
+	</div> <!-- end of div prodlist-->
+</div><!-- end of div_left -->
+
+<div id="div_right">
+	<div id="prodname">
+	
+    	<center><span data-bind="text:productListViewModel.currentproduct().productName" class="prodname"></span></center>
+    </div> <!--end of div_prodname-->
+    <div style="float:right"> <Button id = "save" ></Button></div>	
+	<form id="productForm"  action="#" >	
+	<table border="2">
+	<tbody data-bind='template: { name: "productTemplate", data:productListViewModel.currentproduct, afterRender:jqueryuilogic}'></tbody>
+	</table>
+	</form>	
+</div><!--end of div_right -->
+</div><!-- end of container-->
+ 
+
+
+<!--listTemplate-->
+<script type="text/html" id="listTemplate">	
+	{{each(j,product) products() }}	
+	<li data-bind="click:function(){setCurrentProd(j);}">
+   	<a data-bind="text:productName" href="#"> </a> <button data-bind="click:function(){deleteProd(product)}"> X </button>
+	</li>
+	{{/each}}
+
+	<a data-bind="click:function(){ productListViewModel.getPreviousPage(); },visible:PAGE_NUMBER() > 1" href="#">Previous</a>
+	{{each(i) pageNumbers}}
+	{{if PAGE_NUMBER() == i+1}}
+		${i+1}
+	{{else}}
+	<a data-bind="click:function(){ productListViewModel.getPage(i+1); }" href="#">${i+1}</a>
+	{{/if}}
+	{{/each}}
+	<a data-bind="click:function(){ productListViewModel.getNextPage(); },visible:next_page_exists" href="#">Next</a>
+	
+</script>
+
+<!--productTemplate-->
+<script type="text/x-jquery-tmpl" id="productTemplate">
+	<tr>
+		<td class="props">Product Name</td>
+		<td class="propsdesc">
+			<input type="text"  name="productName" size="45em" data-bind="value:productName,valueupdate:'afterkeydown'"/>
+			 </td>
+	</tr>
+		<tr>		 
+		<td class="props" size="30%">Product Desc</td>
+		<td class="propsdesc">
+			<input type="text" name="prodDesc"  size="45em" data-bind="value:prodDesc"/>
+			 </td>
+		</tr>
+		<tr>	 
+		<td class="props">Brand Name</td>
+		<td class="propsdesc">
+			<input type="text" name="brandName" size="45em" data-bind="value:brandName"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Manufacturer Name</td>
+		<td class="propsdesc">
+			<input type="text" name="manufactName" size="45em" data-bind="value:manufactName"/>
+			 </td>	 	 
+	</tr>
+	
+	<tr>	
+		<td class="props">MRP</td>
+		<td class="propsdesc">
+			<input  id="mrp"  name="mrp" size="10em" type="text" class="numberformat"  data-bind="value:mrp"/>
+	    </td>
+	</tr>
+	<tr>	 
+		<td class="props">UOM</td>
+		<td class="propsdesc">
+			<input  type="text" name="UOM" size="45em" data-bind="value:UOM"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Cost</td>
+		<td class="propsdesc">
+			<input id="cost" class="numberformat" type="text" name="cost" size="3em" data-bind="value:cost"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Selling Price</td>
+		<td class="propsdesc">
+			<input id="sellprice" class="numberformat"  name="sellPrice" type="text" size="3em"  data-bind="value:sellPrice"/>
+			 </td>	 	 
+	</tr>
+	
+	<tr>	 
+		
+		<td class="props">Small Img URL</td>
+		<td class="propsdesc">
+			<input name="smallImgUrl" size="45em" data-bind="value:smallImgUrl"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Medium Img URL</td>
+		<td class="propsdesc">
+			<input name="mdmImgUrl" size="45em" data-bind="value:mdmImgUrl"/>
+			 </td>	 	 
+	</tr>
+	<tr>	 
+		<td class="props">Large Img URL</td>
+		<td class="propsdesc">
+			<input name="lrgImgUrl" size="45em" data-bind="value:lrgImgUrl"/>
+			 </td>	 	 
+	</tr>
+	<tr>
+	<td> Manufacture Date</td>
+	<td>
+		<input id="manufactDate" name="manufactDate" size="45em" data-bind="value:manufactDate"/>
+	</td>
+	</tr>	
+<tr>
+	<td> Expiry Date</td>
+	<td>
+		<input id="expiryDate" name="expiryDate" size="45em" data-bind="value:expiryDate"/>
+	</td>
+	</tr>		
+	
+	{{each(j,img) prodImgs}}
+    <tr class="addimages">	    	    	
+		<td class="props">Product Images</td>
+		<td class="propsdesc">				 		
+			<input name="images1" id="images1" type="text" placehoder="Enter Image Name" size="45em" data-bind="value: img, valueupdate:'afterkeydown'"/>
+			<Button data-bind="click:function () {deleteimage(img)}">Delete</Button>
+		</td>	 
+	</tr>
+	{{/each}}
+	<tr><td><Button class="addimagesbutton" data-bind="click:addimages">Add Images</Button></td></td>	
+</script>
+</div> <!--  Product Tab End -->
+<div id="category-tab">
+Next: <Button data-bind="visible:productListViewModel.next_page_exists">Hello</Button>
+</div>	<!--  Category Tab End -->
+
+</div> <!--  End of Tabs Collection -->
+<div id="messageBox">
+</div>	
+
+</body>
+</html>

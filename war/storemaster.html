@@ -1,0 +1,332 @@
+<html>
+<head id="script">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Retail Operations - Super Category Manager</title>
+<link type="text/css" href="css/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/master.css" />
+<link rel="stylesheet" type="text/css" href="css/store.css" />
+
+<script type="text/javascript"
+	src="script/jquery-1.6.min.js"></script>
+<script type="text/javascript"
+	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-2.0.0.js'></script>
+<script type='text/javascript' src='script/jquery.validate.min.js'></script>
+<script type='text/javascript' src='script/knockout.simpleGrid.js'></script>
+<script type='text/javascript' src='script/knockout.jqueryupdate.js'></script>
+
+<script type='text/javascript' src='script/json2.js'></script>
+
+  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script> 
+  <script type='text/javascript' src='script/gmaps.js'></script> 
+<script type='text/javascript' src='script/stores.js'></script>
+<script type='text/javascript' src='script/category.js'></script>
+<script type='text/javascript' src='script/cities.js'></script>
+
+</head>
+<body>
+<div id="tabscollection1">
+			<ul>
+				<li><a href="#tabs-1">Search Store </a></li>
+				<li><a href="#tabs-2">Add or Edit Store </a></li>
+				<li><a href="#CategoryMembership">Category Membership </a></li>
+				
+			</ul>
+			<div id="tabs-1">
+				<form name="searchStore">
+				<input id="searchinput" data-bind="value: storeListViewModel.query,valueUpdate:'afterkeydown'" id="searchinput" type="search">
+			 	<button data-bind="click:storeListViewModel.search">Search</button><button data-bind="click:storeListViewModel.searchusinglucene">Search using lucene</button> <button id="add">Add</button> 
+				<button data-bind="click:storeListViewModel.index"> Index all</button>			
+				</form>
+				<div data-bind="text: status"> </div>
+				<div data-bind="simpleGrid: storeListViewModel.gridViewModel"> </div>
+			</div> <!--  end of tab1 -->
+			
+			<div id="tabs-2">
+				<form id="storeform"  >	
+					<button data-bind="click:function(){$('#storeform').submit();}"  id="savebutton" >Save</button>
+					<button id="locate" class="locate"> Show on Map</button> 
+					<button id="geolocate" class="geolocate"> Locate Me</button> 
+					<button id="geocodeAddress" class="geocodeAddress">Geocode Address</button> 
+					<div id="status">Press 'Show on Map' or Locate me to find your location.</div> 
+					<div style="width:70%" class="logo" id="store" data-bind='with:storeListViewModel.store'> 
+ 					<div id="mainStoreDiv" class="logo">
+						<legend> Basic Store Details</legend>
+						<fieldset>
+
+							<div class="logo">
+							<label  for="storeName">Store Name: <em>*</em>
+							</label>
+							</div>
+							<div class="rightalign">
+							<input class="required" type="text" id="storeName" name="storeName"  
+								required="required" data-bind="value: storeName" placeholder="Store Name" />
+							</div>
+							
+							<div class="wrap"></div>
+							<div class="logo">
+							<label  for="storeDesc">Store
+								Description: <em>*</em>
+							</label>
+							</div>
+							<div class="rightalign">
+							<input class="required" type="text" id="storeDesc"  name="storeDesc" required="required"
+								data-bind="value: storeDesc"
+								placeholder="Store Description" />
+							</div> 
+							<div class="wrap"></div>
+  							<div class="logo">
+							<label  for="manager">Manager Name: <em>*</em>
+							</label> 
+							</div>
+							<div class="rightalign">
+							<input type="text" id="managerName"  name="managerName" class="required" required="required"
+								data-bind="value: managerName" placeholder="Manager Name" />
+							</div>
+							<div class="wrap"></div>
+							<div class="logo">
+								<label  for="email">Store Email: <em>*</em>
+								</label>
+							</div>
+							<div class="rightalign">		
+								<table>
+									<tbody data-bind="foreach:emails">
+									<tr>
+											<td>
+												<input class="required" id="emailadress" name="emailaddress"  required="required" type="email" data-bind="value: emailaddress" placeholder="Store Email" />
+												</td>
+												<td>
+												<a class="deleteButton" href="#" data-bind="click: function() { storeListViewModel.removeEmail($data) },visible: (storeListViewModel.store().emails().length > 1)">Del</a>
+											</td>
+										</tr>
+									</tbody>	
+									<tfoot>
+									<tr>
+									<td>
+									</td>
+									<td>
+										<a class="addButton" href="#"  id="add"  data-bind="click: function(){storeListViewModel.addEmail(emails)}">Add</a>
+									</td>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+		<div class="wrap"> </div>
+		<div class="logo">
+			<label  for="phone">Store Phone: <em>*</em>				</label>
+		</div>
+		<div class="rightalign">		
+				<table>
+						<tbody data-bind="foreach:phones">
+							<tr>											
+							<td>
+							<input id="number" class="required" name="number"  required="required"
+								maxlength="12" type="number"  data-bind="value: number"
+								placeholder="Store Phone number" />
+							</td>
+							<td>	
+							<a class="deleteButton" href="#" data-bind="click: function() { storeListViewModel.removePhone( $data) },visible: (storeListViewModel.store().phones().length > 1)">Del</a>
+							</td>
+							</tr>
+							</tbody>
+					<tfoot>	 
+						<tr>
+						<td>
+									</td>
+						<td>
+						<a  class="addButton" href="#"  id="add"  data-bind="click: function() { storeListViewModel.addPhone(phones) }">Add
+						</a>
+						</td>
+						</tr>
+						  </tfoot>
+				</table>
+			</div>
+				<div class="wrap"> </div>
+				<div class="logo">
+							 <label
+								 for="distance">Delivery Distance: <em>*</em>
+							</label> 
+				</div>
+				<div class="rightalign">
+				<input  id="distance" name="distance" type="number" min="0" max="10"
+								step="1" value="1" data-bind="value: deliveryDistance"
+								placeholder="Delivery Distance" />
+				</div>
+				</fieldset>
+				</div> <!--  end of mainStoreDiv -->
+	<div id="AddressDiv" class="logo" data-bind="foreach:addresses">
+						<legend> Address</legend>
+						<fieldset >
+								<div class="logo">
+								<label  for="Address Line1">Address Line 1: <em>*</em>
+								</label> 
+								</div>
+								<div class="rightalign">
+								<input id="addressline1" class="required" type="text"  name="addressline1" required="required" data-bind="value: addressline1"
+									placeholder="Street address 1" />
+								</div>
+								
+								<div class="wrap"></div>						
+								<div class="logo">
+								<label >City: <em>*</em>
+								</label> 
+								</div>	
+								<div class="rightalign">
+							  	<select  data-bind="event:{change:function(data,event){storeListViewModel.cityChanged($data)}} ,template:{name: 'cityTemplate',data:citiesDB},value:city"  style="width:232px" id="citySelect" >
+								</select> 
+								</div>					
+							
+								<div class="wrap"></div>
+								
+								<div class="logo">
+								<label  for="Locality">Locality: <em>*</em>
+								</label> 
+								</div>
+								<div  class="rightalign">
+								
+								<select data-bind="options:storeListViewModel.locations,value:addressline2"  style="width:232px"  id="addressline2"   name="addressline2" > 
+								</select>
+								</div>
+								<div class="wrap"></div>
+								<div class="logo">
+								<label  for="state">State: <em>*</em>
+								</label> 
+								</div>
+								<div  class="rightalign">
+								<input id="state" name="state" type="text" disabled="disabled" data-bind="value:state" />
+								</div>
+								
+								<div class="wrap"></div>
+									
+								<div class="logo">
+								<label for="zip">Postal Code: <em>*</em>
+								</label> 
+								</div>
+								<div class="rightalign">
+								<input class="required" id="zip" name="zip" type="number" size="20" max="999999" maxlength="6"
+									required="required" data-bind="value: zip"
+									placeholder="Postal Code" />
+								</div>
+								<div class="wrap"></div>
+								<div class="logo">
+								<label  for="Country">Country: <em>*</em>
+								</label> 
+								</div>	
+								<div class="rightalign">
+								<input disabled="disabled" class="required" type="text"  id="country" name="country" value="India" required="required"
+									data-bind="value: country" placeholder="Country" /><br>
+								</div>
+								<div class="wrap"></div>
+								<div class="logo">
+								<label for="Latitude">Latitude:</label>	
+								</div>
+								<div class="rightalign">
+								<input id='lat' data-bind="value:lat" type="number" size='20'   name='lat'  style="background-color: #eee" readonly />
+								</div>
+								<div class="wrap"></div>
+								<div class="logo">
+								<label for="Longitude">Longitude:</label>	
+								</div>
+								<div class="rightalign">
+								<input id='lng' data-bind="value:lng" type="number" size='20' name='lng'  style="background-color: #eee" readonly />
+								</div>	
+							</fieldset>
+							
+					<div class="wrap"></div>	
+					<div   class="logo">
+						<legend> Additional Store Parameters</legend>
+						<fieldset>
+						<div class="logo"> <label> is Store Payment Allowed ?</label></div>
+						<div class="rightalign">
+						<input id="check1"  name="isStorePaymentallowed" type="checkbox" data-bind="checked: store.allowStorePayment" ><br>
+						</div>
+						<div class="wrap"></div>
+						<div class="logo"><label> Order Modification Allowed ?</label></div>
+						<div class="rightalign">
+						<input id="check2" name="ordermodificationallowed" type="checkbox" data-bind="checked: store.allowOrderModification" ><br>
+						</div>
+						<div class="wrap"></div>
+						<div class="logo"><label> Multi Stores ?</label></div>
+						<div class="rightalign">
+						<input id="check3" name="multistore" type="checkbox" data-bind="checked: store.multipleStores" ><br>
+						</div>
+						<div class="wrap"></div>	
+						</fieldset>
+					</div>
+			</div>	<!--  end of Address Div  -->	
+
+		</div> <!--  End of Store main Div -->			
+					
+					<div class="wrap"></div>
+					<div class="logo" > <ul id="messageBox"></ul> </div>
+					<div class="rightalign"></div>
+					<div class="wrap"></div>
+					<button type="submit"  id="savebutton" >Save</button>
+					<button id="locate" class="locate"> Show on Map</button> 
+					<button id="geolocate" class="geolocate"> Locate Me</button> 
+					<button id="geocodeAddress" class="geocodeAddress">Geocode Address</button> 
+				</form>
+					
+			</div> <!--  end of tab2 -->
+			<div id="CategoryMembership">
+			<div class="catMemmain">
+			<div>For Store:
+			<div>Store Name : <span data-bind="text:storeListViewModel.store().storeName"></span></div>
+			<div>Store Desc : <span data-bind="text:storeListViewModel.store().storeDesc"></span></div>
+			</div>
+			<div class="categoryList ui-widget-content"> 	
+			<div class="ui-widget-header"> All Categories</div>
+			
+							<ul id="sortable2" data-bind="template:{name:'cattemplate',foreach:categoryListViewModel.categories()}">
+							</ul>
+
+			
+			<script id="cattemplate">
+			<li class="ui-state-highlight"  data-bind="visible:(id !=categoryListViewModel.storecategory().id )" >
+			<span  data-bind="text:categoryName"> </span>
+			
+				<Button data-bind="click: function() { storeListViewModel.makeStoreCategory($data,storeListViewModel.store().id);}" >Store Category</Button>		
+			
+			</li>
+			
+				
+			</script>
+			
+			</div> <!--  End All Categories -->
+			
+			<div class="categoryList ui-widget-content">
+			<div class="ui-widget-header">Store Category </div>
+			<ul  id="sortable1"  class="connectedSortable">
+			<li class="ui-state-default">
+			<div data-bind="with:categoryListViewModel">
+			<span data-bind="text:storecategory().categoryName"></span>
+			(<span data-bind="text:storecategory().categoryDesc"></span>)
+			</div>
+			</li>
+			</ul>
+			<div data-bind="with:storeListViewModel.store">
+			<span data-bind="text:categoryId"></span>
+			</div>
+			</div> <!--  End All Store Category -->
+				
+				<div class="wrap">
+			</div>
+			</div><!--  end Main Div -->
+			</div><!--  End CategoryMembership Tab -->
+		</div> <!--  end of tabcollection -->
+		
+	 
+	
+	<div id="map"  title="Address Map" ></div> 
+	
+	<script id="cityTemplate" type="text/html" >
+		<option {{if storeListViewModel.store().addresses[0].city == ""}} selected="selected"{{/if}} >Choose..</option>
+		{{each(i, aCity) cities}}
+			<option{{if storeListViewModel.store().addresses[0].city == aCity.name}} selected="selected"{{/if}} value="${value}">${name}</option>
+		{{/each}}
+	</script>
+	</body>
+	</html>
+		

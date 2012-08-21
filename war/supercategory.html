@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Retail Operations - Super Category Manager</title>
+<link type="text/css" href="css/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/master.css" />
+<script type="text/javascript"
+	src="script/jquery-1.6.min.js"></script>
+<script type="text/javascript"
+	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-1.3.0.latest.js'></script>
+<script type='text/javascript' src='script/jquery.validate.min.js'></script>
+<script type='text/javascript' src='script/knockout.simpleGrid.js'></script>
+<script type='text/javascript' src='script/json2.js'></script>
+
+
+
+<script type='text/javascript'>
+$(function () {
+	
+	/* $('body').layout({ applyDefaultStyles: true,
+		closable:false, resizable:false, slidable:false,
+		spacing_open:0
+		}); */
+	// Tabs
+	var $tabs = $('#tabscollection1').tabs();
+	
+		
+
+	$("#supercategoryform").validate({	
+		submitHandler: function() {
+				supercategoryListViewModel.save();
+				$('#tabscollection1').tabs();
+		},
+		errorLabelContainer: "#messageBox",
+		wrapper: "li",
+		errorElement: "em",
+		rules: {supercategoryName: { required: true, minlength: 5},supercategoryDesc: { 
+				    	required:true,
+				    	minlength:7
+				  	}
+				  	
+				  }
+			  	});
+	
+		
+		
+	$('#add').click(function(){
+		$tabs.tabs('select',1);
+		supercategoryListViewModel.supercategory(new supercategory());
+		return false;
+		
+	});
+	$("button").button();
+
+
+	
+});
+</script>
+
+</HEAD>
+<BODY>
+
+	
+		<div id="tabscollection1">
+			<ul>
+				<li><a href="#tabs-1">Search Super category </a></li>
+				<li><a href="#tabs-2">Add or Edit Super category </a></li>
+				
+			</ul>
+			<div id="tabs-1">
+			<form name="searchsupercategory">
+			<input data-bind="value: query" id="searchinput" type="search">
+		 	<button data-bind="click:search">Search</button> <button id="add">Add</button> 
+			</form>
+			
+			<div data-bind="simpleGrid: gridViewModel"> </div>
+			
+
+			</div>
+			
+			<div id="tabs-2">
+		<form id="supercategoryform"   >	
+		<div style="width:70%" class="logo" id="supercategory" data-bind='template:{name: "supercategoryTemplate",data:supercategory}'> 
+		</div>
+				<div class="wrap"></div>
+		<div class="logo" > <ul id="messageBox"></ul> </div>
+		<div class="rightalign"></div>
+		<div class="wrap"></div>
+		<div  class="logo" style="width:35%">
+		<fieldset>
+	<label for="availablecat">Available Categories</label><br>
+	<select id="availablecat" multiple="true" data-bind="options:availableCategories(),selectedOptions:choosenCategories,  optionsText:function(item){ 
+			return item.categoryName + '(Desc:' + item.categoryDesc + ')' }
+			"></select>
+			</fieldset>
+			</div>
+<!--  
+		<div class="demo">	
+		<ol id="aCat" data-bind='template:{name:"aCatTemplate",data:availableCategories}'>		
+	
+		</ol>
+		</div>
+		-->
+		<div class="wrap"></div>
+		
+		 
+					<button type="submit"  id="savebutton" >Save</button>
+			
+				</form>
+				
+		<script type="text/html" id="supercategoryTemplate">		
+						<div class="logo">	
+						<legend> supercategory Details</legend>
+						<fieldset>
+							<div class="logo">
+							<label  for="supercategoryName">supercategory Name: <em>*</em>
+							</label>
+							</div>
+							<div class="rightalign">
+							<input class="required" type="text" id="supercategoryName" name="supercategoryName"  
+								required="required" data-bind="value: supercategoryName" placeholder="supercategory Name" />
+							</div>
+							
+							<div class="wrap"></div>
+							<div class="logo">
+							<label  for="supercategoryDesc">supercategory
+								Description: <em>*</em>
+							</label>
+							</div>
+							<div class="rightalign">
+							<input class="required" type="text" id="supercategoryDesc"  name="supercategoryDesc" required="required"
+								data-bind="value: supercategoryDesc"
+								placeholder="supercategory Description" />
+							</fieldset>
+							</div>
+									 
+						</div>
+					<div class="wrap"></div>
+
+
+	</script>
+	
+	  <script type="text/html" id="aCatTemplate">
+	</script>
+	
+	<!--  <script type="text/html" id="aCatTemplate">
+						<li>
+						<input class="check" id="check"  data-bind="value:catid"  /></input><label for="check" data-bind="text:categoryName"></label>
+						</li>
+	
+				</script>		
+					
+			 -->
+					
+	
+	
+					
+		</div>
+		</div>
+		
+	<script type="text/javascript">
+
+function supercategory (id, supercategoryName,supercategoryDesc,categories) {
+		this.id = id;
+		this.supercategoryName =supercategoryName;
+		this.supercategoryDesc = supercategoryDesc;
+	 	this.categories = ko.observableArray(categories);
+}
+function category (catid, categoryName , categoryDesc) {
+	this.catid = catid;
+	this.categoryName =categoryName;
+	this.categoryDesc = categoryDesc;
+	this.isSelected = ko.observable(false);
+}
+var  supercategoryListViewModel = {
+	supercategories: new ko.observableArray(),
+	supercategory: ko.observable( new supercategory()),
+	choosenCategories:ko.observableArray(),
+	availableCategories :  new ko.observableArray(),
+	query:  ko.observable(),
+	search: function(){
+		   var mydata = ko.toJS({query:this.query,action:"search"});
+		  $.ajax({
+		    	url:"/supercategory",
+		    	dataType: "json",
+	            data: mydata,
+	            type: "GET",
+	            success: function(resp) {
+	            	//alert(resp);
+	            	if(resp){
+	        			//getting the data from the response object
+	        			data=resp.data;
+	        		}
+	        		if(data.length > 0){
+	        			supercategoryListViewModel.supercategories.removeAll();
+	        			supercategoryListViewModel.supercategories.valueHasMutated();
+	        			for (var i=0;i<data.length;i++){
+	        				supercategorydata = new supercategory(data[i].id, data[i].supercategoryName, data[i].supercategoryDesc,data[i].categories,true);
+	        				this.choosenCategory(supercategorydata.categories);
+	        				this.supercategories.push( supercategorydata );
+	        			}
+	        		}
+	            },
+		  		error:function(jqxhr, e, errorText){
+		  			alert("error : "+ errorText);
+		  		}
+	        });
+			
+	},
+	
+    edit: function(supercategory){
+    	 supercategoryListViewModel.supercategory(supercategory);
+    	 this.choosenCategories(supercategoryListViewModel.supercategory().categories);
+    	return false;
+    },
+   	save:function() {
+   		this.supercategory().categories(this.choosenCategories);
+   	   var mydata = ko.toJSON({supercategory:this.supercategory,action:"PUT"});
+	   alert(mydata);
+	    $.ajax({
+	    	url:"/supercategory",
+            data: "JSON="+mydata+"&action=PUT",
+            type: "post",
+            success: function(result) { 
+        		alert(result);
+        		supercategoryListViewModel.supercategory(new supercategory());
+                }
+        });
+    }  
+ };
+
+
+
+function loaddata(){
+	 var mydata = ko.toJS({query:"",action:"search"}); 
+	 $.ajax({
+	   	url:"/category",
+	   	dataType: "json",
+	     data: mydata,
+	       type: "GET",
+	       success: function(resp) {
+	       	//alert(resp);
+	       	if(resp){
+	   			//getting the data from the response object
+	   			data=resp.data;
+	   		}
+	   		if(data.length > 0){
+	   			supercategoryListViewModel.availableCategories.removeAll();
+	   			supercategoryListViewModel.availableCategories.valueHasMutated();
+	   			for (var i=0;i<data.length;i++){
+	   				categorydata = new category(data[i].id, data[i].categoryName, data[i].categoryDesc);
+	   				supercategoryListViewModel.availableCategories.push( categorydata );
+	   				
+	   			}
+	   		}
+	       },
+	 		error:function(jqxhr, e, errorText){
+	 			alert("error : "+ errorText);
+	 		}
+	   });
+ }
+ 
+ 
+supercategoryListViewModel.gridViewModel = new ko.simpleGrid.viewModel({
+    data: supercategoryListViewModel.supercategories,
+    columns: [{headerText:"Edit",rowText:"",action:"Edit",rowLink:function(supercategory){$('#tabscollection1').tabs('select',1); supercategoryListViewModel.edit(supercategory)}},
+        { headerText: "Delete",action:"Delete", rowText:"",rowLink:function(supercategory){ 
+        	 var mydata = ko.toJS({id:supercategory.id,action:"delete"});
+   		  $.ajax({
+   		    	url:"/supercategory",
+   		    	dataType: "text",
+   	            data: mydata,
+   	            type: "POST",	
+   	            success: function(resp) {
+   	            alert(resp);	
+   	            },
+   		  		error:function(e){
+   		  			alert("error : "+ e);
+   		  		}
+   	        });
+   		} },
+        { headerText: "Super Category Desc", action:"",rowText: "supercategoryDesc",rowLink:"" },
+        { headerText: "Super Category Name", action:"",rowText: "supercategoryName",rowLink:"" },
+
+     ],
+    pageSize: 10
+});
+ 
+ 
+ko.applyBindings(supercategoryListViewModel);
+loaddata(); 
+
+
+</script>
+
+</BODY>
+</html>

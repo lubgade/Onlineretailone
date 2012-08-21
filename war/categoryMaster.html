@@ -1,0 +1,230 @@
+<!-- Author : Leena Ghanekar -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head id="script">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Retail Operations - Super Category Manager</title>
+<link type="text/css" href="css/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/master.css" />
+<script type="text/javascript"
+	src="script/jquery-1.6.min.js"></script>
+<script type="text/javascript"
+	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-1.3.0.latest.js'></script>
+<script type='text/javascript' src='script/jquery.validate.min.js'></script>
+<script type='text/javascript' src='script/knockout.simpleGrid.js'></script>
+<script type='text/javascript' src='script/knockout.productGrid.js'></script>
+
+<script type='text/javascript' src='script/json2.js'></script>
+
+  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script> 
+  <script type='text/javascript' src='script/gmaps.js'></script>
+
+<style>
+	.column { width: 500px; }
+	.portlet { margin: 0 1em 1em 0; }
+	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+	.portlet-header .ui-icon { float: right; }
+	.portlet-content { padding: 0.4em; }
+	.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+	.ui-sortable-placeholder * { visibility: hidden; }
+	
+.search{
+	width:25em;
+}	
+
+.catname{
+	font-weight: 900;
+	font-style:italic;
+}
+.div_left{
+	border-style:groove;
+	padding-right: 4px;
+	margin-right: 10px;
+	border-color : #8C2300;	
+
+	}
+	
+.div_right{
+	border-style:groove;	
+	border-color : #8C2300;
+	
+	}		
+
+
+</style>
+</head><body>
+	<div id="tabscollection1">
+			<ul>
+				<li><a href="#tabs-1">Search Category </a></li>
+				<li><a href="#tabs-2">Add or Edit Category </a></li>
+				<li><a href="#tabs-3"><span class="catname" data-bind="text:categoryListViewModel.category().categoryName"></span> - Products						
+ </a></li>
+				<li><a href="#tabs-4"><span class="catname" data-bind="text:categoryListViewModel.category().categoryName"></span> - Categories Rollup						
+ </a></li>
+	
+				
+			</ul>
+			<div  id="tabs-1">
+				<form name="searchCategory">
+				<input data-bind="value: query" id="searchinput" type="search">
+			 	<button data-bind="click:search">Search</button> <button id="add">Add</button> 
+				</form>
+				<div class="column">
+					<div class="portlet">
+					<div class="portlet-header">List of Categories</div>
+					<div  class="portlet-content" data-bind="simpleGrid: categoryListViewModel.gridViewModel"> </div>
+					
+					</div><!-- END PORTLET -->
+			</div><!-- END COLUMN -->
+			<div class="column">	
+				<div class="portlet">
+				<div class="portlet-header">Sub Categories</div>
+				<div >
+			 		<select style= "width:100%" id="subcatselectid" class="portlet-content" multiple="true" data-bind="options:categoryListViewModel.currentsubcat(),optionsText: function(item){
+						return item.categoryName + '( ' + item.categoryDesc +  ' )'}" class="portlet-content"></select>
+				</div>
+				</div><!-- END PORTLET -->
+			</div><!-- END COLUMN -->
+		</div><!-- END TAB1 -->
+			
+			
+			<div id="tabs-2">
+				<form id="categoryform"  >	
+					<div style="width:70%" class="logo" id="category" data-bind='template:{name: "categoryTemplate",data:categoryListViewModel.category}'> 
+					</div>
+					<div class="wrap"></div>
+					<div class="logo" > <ul id="messageBox"></ul> </div>
+					<div class="wrap"></div>
+					<button type="submit"  id="savebutton" >Save</button>
+				</form>
+			</div><!-- END TAB2 -->
+			
+			<div id="tabs-3">
+				<div>		
+		<input id="search" class="search" placeholder="Search" type="search"/>
+		<button id="savecategoryproducts">Save Category</button>
+	</div>		
+	<div  class="logo div_left"> 	
+	<em>All Products  </em>	
+	<ul data-bind="template:{name:'listTemplate',data:productListViewModel}">	
+		<span onclick="text:productName"></span>	
+	</ul>
+	</div> <!-- end of div prodlist-->
+	<div " class="logo div_right">
+	<em>Products In Category </em>	
+	<ul data-bind="template:{name:'categoryProductTemplate',data:categoryListViewModel}">	
+	</ul>
+	</div>
+	<div class="wrap">
+	</div>
+	
+	</div> <!--end of div product-->
+	
+	<div id="tabs-4">
+		<div>
+			<button id="savecategorycat">Save Category</button>
+</div>
+	<div  class="logo div_left"> 	
+		
+	<em>All Categories  </em>	
+	<ul data-bind="template:{name:'categoryListTemplate',data:categoryListViewModel}">	
+		<span onclick="text:productName"></span>	
+	</ul>
+	</div> <!-- end of div categories-->
+	<div " class="logo div_right">
+	<em>Categories In Category </em>	
+	<ul data-bind="template:{name:'catincatTemplate',data:categoryListViewModel}">	
+	</ul>
+	</div>
+	<div class="wrap">
+	</div>
+	
+		
+	</div><!-- end of div categories Rolloup -->
+	
+	</div><!-- END TABCOLLECTION -->
+		
+		
+		
+		<script type="text/html" id="categoryTemplate">		
+		<div class="logo">	
+						<legend> Category Details</legend>
+						<fieldset>
+							<div class="logo">
+							<label  for="categoryName">Category Name: <em>*</em>
+							</label>
+							</div>
+							<div class="rightalign">
+							<input class="required" type="text" id="categoryName" name="categoryName"  
+								required="required" data-bind="value: categoryName" placeholder="Category Name" />
+							</div>
+							
+							<div class="wrap"></div>
+							<div class="logo">
+							<label  for="categoryDesc">Category
+								Description: <em>*</em>
+							</label>
+							</div>
+							<div class="rightalign">
+							<input class="required" type="text" id="categoryDesc"  name="categoryDesc" required="required"
+								data-bind="value: categoryDesc"
+								placeholder="Category Description" />
+							</div>
+												<div class="wrap"></div>
+
+			
+		</fieldset>
+	</div>
+	</script>
+			
+	
+	<!--listTemplate-->
+<script type="text/html" id="listTemplate">	
+	{{each(j,product) products() }}	
+	<li data-bind="click:function(){setCurrentProd(j);}">		
+   	<a data-bind="text:productName"> </a><button data-bind="click:function(){ var prodids = $.map(categoryListViewModel.products(),function(item){ return item.id;}); if (prodids.indexOf(id) == -1 ){  categoryListViewModel.products().push(product);categoryListViewModel.products.valueHasMutated();} }">Add to Category</button> 
+	</li>
+	{{/each}}
+</script>
+
+<script type="text/html" id="categoryListTemplate">	
+	{{each(j,category) categories() }}	
+	<li>		
+   	<a data-bind="text:categoryName"> </a><button id="add1" data-bind="click:function(){ var categoryids = $.map(categoryListViewModel.catids(),function(item){ return item.id;}); if (categoryids.indexOf(id) == -1 &&  !(categoryListViewModel.category().id == id)) { categoryListViewModel.catids().push(category);categoryListViewModel.catids.valueHasMutated();} }">Add to Category</button> 
+	</li>
+	{{/each}}
+</script>
+
+<script type="text/html" id="catincatTemplate">	
+	{{each(j,category) catids() }}	
+	<li>		
+   	<a data-bind="text:categoryName"> </a><button id="Delete1" data-bind="click:function(){ ko.utils.arrayRemoveItem(categoryListViewModel.catids(),category);categoryListViewModel.catids.valueHasMutated(); }">Del</button> 
+	</li>
+	{{/each}}
+</script>
+
+
+
+
+<script type="text/html" id="categoryProductTemplate">	
+	{{each(j,product) products() }}	
+	<li>
+   	<span data-bind="text:productName"> </span>
+   	
+   	<button data-bind="click:function(){ko.utils.arrayRemoveItem(categoryListViewModel.products(),product);categoryListViewModel.products.valueHasMutated();}">Del</button>
+	</li>
+	{{/each}}
+</script>
+
+
+
+	  
+			<script type='text/javascript' src='script/category.js'></script>
+<script type='text/javascript' src='script/product.js'></script>
+
+	  
+</body>
+</html>

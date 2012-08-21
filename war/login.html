@@ -1,0 +1,17 @@
+ <html>
+    <head>
+      <title>My Facebook Login Page</title>
+    </head>
+    <body>
+      <div id="fb-root"></div>
+      <script src="http://connect.facebook.net/en_US/all.js"></script>
+      <script>
+         FB.init({ 
+            appId:'224808994230016', cookie:true, 
+            status:true, xfbml:true 
+         });
+      </script>
+            <fb:login-button onlogin="javascript:query_fb_login();" perms="email,user_birthday,offline_access,publish_stream">Connnect With Facebook</fb:login-button> 
+      
+    </body>
+ </html>

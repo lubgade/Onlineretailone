@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Manage Shopping List</title>
+	<style>
+	#div_1{
+	width: 15%;
+	float:left;
+	border-style:groove;
+	padding-right: 4px;
+	margin-right: 10px;
+		border-color : #8C2300;
+
+	}
+	#div_2{
+	width: 82%;
+	float:left;
+	border-style:groove;
+	background-color: #FFCC66;	
+			border-color : #8C2300;
+
+	}	
+	ul{
+	list-style: none;
+	padding:0
+	
+	}
+	li{
+		border-style:groove;
+		text-align: left;
+		background-color:#FFCC66; 
+	}
+	a:hover{
+		color:#FFFFFF
+	}
+	li:hover{
+	background-color:#663333	
+	}
+	#div_3{
+	
+	width:100%;
+	background-color: #663333;
+	border-style:none
+	}
+	
+	.listname{
+	font-family:"Franklin Gothic Heavy";
+	font-size:larger;
+	font-style:italic;
+	font-weight:bold;
+	text-align:justify;
+	color: white; 
+	 
+		
+	}
+	#div_4{
+		margin-top: 5px;
+		border-style:groove;
+		margin-bottom:5px;
+		margin-left:6px;
+		margin-right:2px;  
+	}
+	
+	#search{
+
+	width:80%;
+		margin-left:auto;
+margin-right:auto;
+text-align: center;
+
+		background: #663333 url(css/images/search.png) no-repeat 4px 4px;
+		
+		
+		
+		
+	}
+	body{
+	background-color : #FFFDD4;
+
+	}
+		
+	</style>
+	</head>
+	<body>
+	<div  id="div_1">
+	<center><input id="search"  placeholder="Search" type="search"/></center>	
+	<div id="div_4">
+	<ul>
+	<li>
+	<a href="#">List#1</a><input type="hidden" /> 	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	<li>
+	<a href="#">List#1</a>	
+	</li>
+	</ul>
+	
+	</div>
+	</div>	
+	<div  id="div_2">
+	<div id="div_3"><center><span class="listname">List Name</span></center></div>	
+	<table>
+	<tr><th>Item Name</th><th>Quantity</th><th>UOM</th>
+	</tr>
+	<tr><td><input type="text"/></td><td><input type="text"/></td><td><input type="text"/></td>
+	</tr>
+	</table>		
+	</div>	
+	</body>
+</html>

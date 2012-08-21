@@ -1,0 +1,463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="css/master.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.16.custom.css" />
+<script type="text/javascript"
+	src="script/jquery-1.6.min.js"></script>
+<script type="text/javascript"
+	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+	<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-1.3.0.latest.js'></script>
+<script type='text/javascript' src='script/jquery.validate.min.js'></script>
+<script type='text/javascript' src='script/knockout.productGrid.js'></script>
+<script type='text/javascript' src='script/knockout.simpleGrid.js'></script>
+<script type='text/javascript' src='script/knockout.jqueryupdate.js'></script>
+
+<script type='text/javascript' src='script/json2.js'></script>
+
+<script type='text/javascript' src='script/master.js'></script>
+<script type='text/javascript' src='script/category.js'></script>
+<script type='text/javascript' src='script/product.js'></script>
+
+<script type='text/javascript' src='script/menu.js'></script>
+
+<style>
+
+#maincontent{
+	width:700px;
+	margin-left:auto;
+margin-right:auto;
+margin-top:auto;
+margin-bottom:auto;
+border: none;	
+}
+#bottom{
+	height:5em;
+	background-color:#35586C; 
+	margin-left:-10px;
+	margin-right:-10px;
+}
+#bottomcontent{
+	width:700px;
+	margin-left:auto;
+margin-right:auto;
+margin-top:auto;
+margin-bottom:auto;
+
+}
+
+#top{
+	height:3em;
+	background-color:#35586C; 
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+}	
+	
+    #left_div{
+    /*	margin-left: 1em;*/
+        
+        margin-top:1em;
+    	width:540px;	
+    	border-style:groove;
+    	border-color:#F0F0F0;
+    	padding:2px;
+    	/*height:18em;*/
+    	float:left;
+    }
+    
+    #right_div{
+    	float:left;
+    	margin-left:2px;
+    	margin-top:1em;
+    	/*width:8em;*/
+    	border-style:groove;
+    	border-color:#F0F0F0;
+    	height:6.5em;
+    }
+    
+    
+    h4{
+    	margin-top:2px;
+    	font-size:9pt;
+    	margin-bottom: 0px;
+    	padding-bottom: 0px;
+    }
+    
+    #top_info_left h4  , #top_info_rt h4, #top_info_rt a{
+    	color:white;
+    	
+    }
+    
+    .disp{
+    	display:inline;
+    }
+    
+   #top  hr{
+    	width:8em;
+    	margin:0;
+    	padding:0;
+    }
+	
+	.left{
+	   float:left;	  
+     }
+          
+   #bottom hr{
+   	   
+  	    width:61em;
+     }
+     #logo{
+     	margin:10px;
+     	width:80px;
+     	height:30px;
+     	vertical-align:middle;
+     	float:left;
+     	z-index: 10;
+     }
+     #top_info_left {
+     /*	margin-left:15em;*/
+     	margin-top:1em;     	   
+     	float:left; 
+     	vertical-align:middle; 	
+     }
+     
+     #top_info_rt{
+     	float:right;
+       	margin-top:0.8em;
+     	vertical-align:middle;
+     	border:1px solid red;
+     	/*display:inline;*/
+     	
+     }
+     
+     .ft_size{
+     	font-size:9pt;
+     	padding:0;
+     	margin:0;
+     }
+     
+    #lock{
+    	width:18px;
+    	height:18px;
+    }
+     
+     #bot_info{
+     	margin-left:1.5em;
+     	margin-top:3.5em;
+     }
+     
+     .right{
+     	float:right;
+     }
+     
+     .marg_left{
+     	/*margin-left:11em;*/
+     }
+     
+     #hdr {
+     	width:30em;
+     	background-color:#dddddd;
+     	height:20px;
+     }
+     
+     
+  body {
+  	font-size: 10pt;
+  }   
+input[type="text"], input[type="number"] {
+ font-size: 0.6em;
+ width:100px;	
+}     
+select {
+font-size:0.6em;
+width:200px;	
+height: 0.6em;	
+}
+
+input[type="number"]{
+	width:10px;
+}
+     #nav_bar{
+width:0; /*set dimensions of DIV to 0 so its borders collapse and touch one 
+another*/
+height:0;
+border-color: transparent transparent transparent #5D92B1; /*top, right, bottom, and left border*/
+border-style: solid;
+border-width: 10px; /*width of each border*/
+margin:0;
+padding:0;
+}
+
+ #hdr ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+
+#hdr ul li{
+ color:#663333;
+ font-family: Arial, "MS Trebuchet", sans-serif;	
+ float:left;
+ display:inline;
+ margin:0;
+padding:0;
+width:100px;
+text-align: center;
+} 
+
+
+#elogin{
+	background-color:#5D92B1;
+}
+
+#clktoselect{
+	display:block;
+	width:144px;
+	height:24.5px;
+	background-color:#dddddd;
+	text-align: center;
+	
+padding:0;
+text-decoration:none;
+color:#000000;
+margin-top:3px;
+}
+
+#hdr ul li a
+{
+display:block;
+height:20px;
+width:100px;
+text-align: center;
+margin:0;
+padding:0;
+text-decoration:none;
+color:#000000;
+}
+
+#mborder{
+	
+	border-left-color:#000000;
+	height:13em;
+    border-style:solid;
+	margin-left:3.5em;
+	margin-top:1em;
+	width:0px;
+	
+}
+
+#addr{
+	width:9em;
+	height:7em;
+	border-style:solid;
+	border-color:#F0F0F0;
+	text-align:center;
+	margin-top:7px;
+}
+
+#r_div_cont{
+	margin-left:3em;
+}
+
+#left_div_cont{
+	margin-left:15px;
+}
+
+.{
+	margin-left:35em;
+}
+
+#continue{
+	margin-left:8em;
+	margin-top:20px;
+}
+.main {
+	
+}
+
+.margin_top{
+	margin-top:1em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+	
+	<div id="top">
+		
+	<div id="maincontent">
+	<div id="contenttop">		
+	<div id="logo" class="ui-widget-header">Logo</div>
+	<div id="top_info_left">
+	<h4 class="disp">Secure Payment</h4>
+	</div>
+	<div id="top_info_rt" class="disp">
+	<h4 class="disp">Hi,somename@gmail.com</h4>
+	<span>|</span>
+	<a id="logout" class="ft_size" href="/masterindex.html">Logout</a>		
+	</div>
+	</div>
+	<div class="wrap"></div>
+<div id="maindiv" class="main" >	
+<div id="left_div" class="left">
+	<div id="tabs" class="left">						
+		<!--<div id="hdr">		-->	
+			<ul>							
+				<li id="elogin"><a href="#tabs-1" class="ft_size">Email Login</a></li>
+				<div id="nav_bar" class="left"> </div>								
+				<li id="shipAddress"><a href="#tabs-2" class="ft_size next1">Shipping Address</a></li>				
+				<div id="nav_bar" class="left"></div>
+				<li id="osummary"><a href="#tabs-3" class="ft_size">Order Summary</a></li>
+				<div id="nav_bar" class="left"></div>
+				<li id="payops"><a href="#tabs-4" class="ft_size">Payment Options</a></li>
+			</ul>
+	<!--	</div>  end of hdr --> 
+		
+			<div id="tabs-1">
+			  </br>  </br> </br>   
+		 	<h4 class="disp ">Your Email Address:</h4>
+		 	<span class="ft_size">somename@gmail.com (Not You <a id="logout" class="ft_size" href="/masterindex.html">Logout</a>)</span> </br>
+		 	<span class="ft_size marg_left">Your order details will be sent to this email address</span> </br>	
+		 	<Button id="continue" class="next1">Continue</Button>		 	
+		</div> <!--end of tabs-1-->
+		    
+		     <div id="tabs-2">
+      </br>
+	<span class="ft_size">Select from previous shipping Address&nbsp;&nbsp;  <b>OR</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Enter a new shipping Address  </span>
+	<div id="l_div" class="left">		 
+		
+	    </br>
+		<div id="addr">
+		<h4>Some Name</h4>		
+		<address class="ft_size">
+		Sobha Carnation,</br>
+ 		Sarjapura Outer Ring Road,</br>
+ 		Bellandur,</br>
+ 		Bangalore - 560103</br>
+ 		Phone : 080 - 25747688
+		</address>		
+		<a href="#" id="clktoselect" class="ft_size">Click To select</a>		
+		</div>
+   </div> <!--end of l_div--> 
+ 
+    <div id="mborder" class="left"> </div>
+    	
+	<div id="r_div" class="left">
+	</br>
+	<div id="r_div_cont">
+		<span class="left ft_size">Name:</span>
+	    <input class="right"  type="text" name="name" size="10em"/>  </br>
+	    <span class="left ft_size">Address:</span>
+	    <input class="right" type="text" name="address" size="10em"/>  </br>
+	    <span class="left ft_size">City:</span>
+	    <input class="right" type="text" name="city" size="10em"/>  </br></br>
+	    <span class="left ft_size">State:</span>
+	    <select style="width:6em;height:1em" class="right">
+		<option class="ft_size">Select</option>
+	    </select> </br></br>
+	    <span class="left ft_size">Country:<b class="right">India</b></span> </br>	    
+	    <span class="left ft_size">Pincode</span>
+	    <input class="right" type="text" name="pcode" size="10em"/> </br>
+	    <span class="left ft_size">Phone Number</span>
+	    <input class="right" type="text" name="phone" size="10em"/> </br> </br>
+	    <Button id="savetocont" class="ft_size">Save & Continue</Button> 
+	</div> <!--end of r_div_cont-->
+ </div> <!--end of r_div-->
+ 	</div> <!--end of tabs-2-->
+ 	
+ 	<div id="tabs-3" class="portlet-content" data-bind="simpleGrid: shoppingCartListViewModel.gridViewModel">
+ 		
+ 	</div> <!--end of tabs-3--> 
+ 	
+ 	<div id="tabs-4"> 	
+ 		
+ 		<h5 class="ft_size">Choose your mode of payment</h5>
+ 		<div id="tabs-5">
+ 		<ul>
+		<li><a href="#cod-tab">Cash-on-Delivery</a></li>
+		 <li><a href="#NB-tab">Net Banking</a></li>
+		<!--<li><a href="#CC-tab">Credit Card</a></li>
+        <li><a href="#DC-tab">Debit Card</a></li>      -->  
+		</ul>
+		<div  id="cod-tab">
+		Hello	ffffffffffffffffffffffffffffffffffff
+		hhjgfyfjy<br>
+		ghygvhjgvhj<br>
+		vjvjvhk<br>
+		fgjfcjfjyfj<br>
+		<br>
+		dgdehrth
+		<br>
+		gzdsg
+		<br>
+		sgsrgsgsG
+		
+		<br>
+		gsfgsg
+				<br>
+		
+		<div class="wrap"></div>
+		</div>
+		<div id="NB-tab">
+		How are you	
+				<div class="wrap"></div>
+
+		</div>
+		</div>	
+ 	</div> <!--end of tabs-4--> 	 	
+	</div> <!--end of tabs-->	
+	</div> <!--end of left_div-->
+
+	<div id="right_div">
+		<h4>&nbsp;&nbsp;Order Summary</h4>
+		 <hr/>
+		<span class="left ft_size">Items:</span>
+		<span data-bind="text:shoppingCartListViewModel.totalQuantity" class="ft_size left"></span>
+		 </br>
+		<span class="left ft_size">Sub Total:</span>
+		<span data-bind="text:shoppingCartListViewModel.grandTotal" class="ft_size"></span>
+		 </br>
+		<span class="left ft_size">Shipping:</span> 
+		<span data-bind="text:shoppingCartListViewModel.shippingAmt" class="ft_size"></span>
+		</br>
+		<span class="left ft_size">Amount Payable:</span><span data-bind="text:shoppingCartListViewModel.amountPayable"></span> </br>
+	</div>	 <!--end of right_div-->
+
+
+	
+
+<div class="wrap"></div>
+
+<div class="left marg_left">
+	<img id="lock" src="css/images/lock_closed.png"/>
+	<span class="ft_size">Safe And Secure Shopping Guarantee</span>
+</div> <!--end of lock-->
+</div>
+
+
+
+<div class="wrap"></div>
+
+</div>	<!-- end of maincontent -->
+	</div><!--end of top-->
+
+<div class="wrap"></div>
+
+<div id="bottom" >
+	
+	<div id="bottomcontent"><footer class="left ft_size ">©  2012 HappyShopping.com</footer>
+	<div class="right"><a href="/masterindex.html" class="left ft_size">Home</a>
+	<span>|</span></div></div>	
+</div> <!--end of bottom-->
+
+
+
+</body>
+</html>

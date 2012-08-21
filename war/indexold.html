@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Retail Operations</title>
+    <link type="text/css" href="css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+    <link rel="stylesheet" type="text/css" href="css/master.css" />
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script> 
+ 	<script type="text/javascript" src='script/jquery.layout-latest.js'> </script>
+   <script type="text/javascript" src='script/jquery-ui-1.8.16.custom.min.js'> </script>
+<script type='text/javascript' src='script/jquery.tmpl.js'></script>
+<script type='text/javascript' src='script/knockout-1.3.0.latest.js'></script>
+ 
+<script type='text/javascript' >
+$(document).ready(function () {
+
+	$('body').layout({ applyDefaultStyles: true,
+		closable:false, resizable:false, slidable:false,
+		spacing_open:0
+		});
+	// Tabs
+
+	$('#tabscollection1').tabs();
+	$("button").button();
+
+});
+</script>
+ 
+</HEAD>
+<BODY>
+ 
+<DIV class="ui-layout-center">
+
+<div id="tabscollection1">
+			<ul>
+				<li><a href="#tabs-1">Store1</a></li>
+			</ul>
+	<div id="tabs-1">
+	
+<form data-bind="submit:addStore">
+    <div class="logo">
+    <legend> Basic Store Details</legend>
+    
+	<fieldset>
+	
+  <label class="logo" for="storeName">Store Name: <em>*</em></label><br>
+   	<input class="topheader" required="required"  data-bind="value: newstoreNametext" placeholder="Store Name"  /> <br>
+  <label class="logo" for="storeDesc">Store Description: <em>*</em></label><br>
+    <input  class="topheader" required="required" data-bind="value: newstoreDesctext" placeholder="Store Description" /><br>
+ <label class="logo" for="manager">Manager Name: <em>*</em></label><br>
+    <input class="topheader" required="required" data-bind="value: newstoreDesctext" placeholder="Manager Name" /><br>   
+   <label class="logo" for="email">Store Email: <em>*</em></label><br>
+    <input class="topheader" required="required" type="email" data-bind="value: newstoreDesctext" placeholder="Store Email" /><br>
+    <label class="logo" for="phone">Store Phone: <em>*</em></label><br>
+    <input class="topheader" required="required" maxlength="10" type="tel" data-bind="value: newstoreDesctext" placeholder="Store Phone number" /><br>
+    <label class="logo" for="distance">Delivery Distance: <em>*</em></label><br>
+    <input  class="topheader"  type="number" min="0" max="10" step="1" value="1" data-bind="value: newstoreDesctext" placeholder="Delivery Distance" /><br>
+   
+    </fieldset>
+    </div>
+    <div class="topheader">
+    <legend> Address</legend>
+    <fieldset>
+    	<ul>
+	    <li>
+	    <label for="Address Line1">Address Line 1: <em>*</em></label>
+	    <input required="required" data-bind="value: newstoreDesctext" placeholder="Street address 1" /><br>
+	    </li> 
+	    <li>
+	    <label for="Address Line2">Address Line 2: <em>*</em></label>
+	    <input required="required" data-bind="value: newstoreDesctext" placeholder="Street address 2" /><br>
+	    </li>
+	     <li>
+	    <label for="city">City: <em>*</em></label>
+	    <input required="required" data-bind="value: newstoreDesctext" placeholder="City" /><br>
+	    </li>
+	    <li>
+	    <label for="state">State: <em>*</em></label>
+	    <input required="required" data-bind="value: newstoreDesctext" placeholder="State" /><br>
+	    </li>
+	    <li>
+	    <label for="zip">Postal Code: <em>*</em></label>
+	    <input type="number" size="6" max="99999" maxlength="5" required="required" data-bind="value: newstoreDesctext" placeholder="Postal Code" /><br>
+	    </li>
+	    <li>
+	    <label for="Country">Country: <em>*</em></label>
+	    <input value="India" required="required" data-bind="value: newstoreDesctext" placeholder="Country" /><br>
+	    </li>
+	  </ul>
+ 	</fieldset>
+    </div>
+    <div class="wrap"></div>
+   
+    <button type="submit" > Add Store </button>
+</form>
+		
+<table>
+    <thead><tr>
+        <th>Store name</th><th>Store Description</th><th> Remove</th>
+    </tr></thead>
+    <tbody data-bind="template: {name:'storeTemplate', foreach: stores}"></tbody>
+</table>
+
+<script type="text/x-jquery-tmpl" id="storeTemplate">
+    <tr>
+        <td><input data-bind="value: storeName" /></td>
+        <td><input data-bind="value: storeDesc" /></td>
+<td><a href="#" data-bind="click: remove">Remove</a></td>
+      </tr>
+</script>
+<!-- <button data-bind="click: addStore" > Add Store </button>  --> 
+<button  data-bind="click:save" > Save </button>
+		</div>
+		</div>
+</DIV>
+ <DIV class="ui-layout-north">Retail Store Operations</DIV>
+
+<DIV class="ui-layout-south">
+<div id ="footer2" class="footer">
+Footer
+</div>
+</DIV>
+
+<DIV class="ui-layout-east"></DIV>
+
+<DIV class="ui-layout-west">
+<a href="#" >Store Operations </a>
+
+</div>
+
+<script type="text/javascript">
+
+
+
+ function store (storeName, storeDesc,ownerviewModel ){
+	this.storeName= ko.observable(storeName);
+    this.storeDesc= ko.observable(storeDesc);
+    this.remove = function() { ownerviewModel.stores.remove(this) }
+}
+
+function storeListViewModel () {
+    
+	this.stores = ko.observableArray([ ]);
+    
+	this.newstoreNametext = ko.observable();
+    this.newstoreDesctext = ko.observable();
+    
+	this.addStore = function() {
+        this.stores.push(new store(this.newstoreNametext(), this.newstoreDesctext()));
+        this.newstoreDesctext("");
+        this.newstoreNametext("");
+    }
+    
+   this.save = function() {
+        $.ajax("/store", {
+            data: ko.toJSON({stores: this.stores}),
+            type: "post",
+            contentType: "application/json",
+            success: function(result) { alert(result) }
+        });
+    }  
+ }
+
+ko.applyBindings( new storeListViewModel());
+
+
+</script>
+
+</BODY>
+
+</html>

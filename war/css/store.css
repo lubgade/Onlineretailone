@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+.categoryList ul { list-style-type: none; margin: 0; padding: 0;  }
+.categoryList li { margin: 5px; padding: 5px; width:250px; }
+.categoryList{
+	float:left;
+	margin-right:30px;
+}
+
+.catMemmain{
+	padding-left:5em;
+	padding-top:0.1em;
+	border:4px solid buttonhighlight;
+}
+.draggable span{
+	cursor:"move";
+}
