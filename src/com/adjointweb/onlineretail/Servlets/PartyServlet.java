@@ -44,7 +44,7 @@ public class PartyServlet extends BaseServlet{
 	    	resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
 	    }else{
 	  	  String jstring = req.getParameter("JSON");
-		  Party party = Party.getPartyFromjsonstring(jstring);
+		  Party party = Party.getPartyfromjsonString(jstring);
 		  party.setUserId(user.getEmail());
 		  PartyDAO partyDao = DAOFactory.getPartyDAO();
 		  partyDao.createParty(party);
