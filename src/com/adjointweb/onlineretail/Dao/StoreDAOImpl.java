@@ -36,7 +36,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 
-
+ 
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.store.GAEDirectory;
 import org.apache.lucene.store.GAEFileJDO;
@@ -132,6 +132,7 @@ public class StoreDAOImpl implements StoreDAO{
 			tx.begin();
 			storedb.setCategoryId(categoryId);
 			tx.commit();
+			 
 		}
 		catch (JDOObjectNotFoundException ox){
 			ox.printStackTrace();
@@ -520,7 +521,7 @@ public class StoreDAOImpl implements StoreDAO{
         List<Address> queryResults = new ArrayList<Address>();
 		PersistenceManager pm =  PMF.get().getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		pm.setDetachAllOnCommit(true);
+		pm.setDetachAllOnCommit(true); 
 		try{
 			tx.begin();
 			queryResults  = GeocellManager.proximitySearch(center, 20,distance, Address.class, baseQuery, pm);
