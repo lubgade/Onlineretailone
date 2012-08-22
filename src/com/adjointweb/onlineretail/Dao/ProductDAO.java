@@ -13,8 +13,10 @@ public interface ProductDAO {
 	   void deleteProduct(Product product);
 	   void deleteProduct(long id);
 	   List<Product> getProducts(String productName);
+	   List<Product> getProducts(Long aProductId);
 
-	 
+	   List<Product> getProducts(Long aCategoryId, Long aProductId);
+
 	   Product getProduct(long id);
 	 List<Product> getProducts();
 	  
