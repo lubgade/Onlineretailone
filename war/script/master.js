@@ -424,8 +424,6 @@ var address  = function() {
 }
 
 var order = function() {
-	
-	
 	this.orderType="";
 	this.orderName="";
 	this.orderNumber="";
@@ -450,6 +448,7 @@ var paymentinfo = function(){
 
 var orderViewModel = {
 		availableTimings:ko.observable(['9 Am - 12 PM','12 PM - 3 PM','3 PM - 6 PM','6 PM - 9 PM']),
+		availableDate:ko.observable([new Date(),new Date(),new Date(),new Date()]),
 		selectedtmg:ko.observable(),
 		confirmedorder:  ko.observable(new order()),
 		getOrderfromLocalStorage:function(){
