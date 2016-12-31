@@ -84,7 +84,6 @@ storelocations:[{name:"AIRPORT ROAD"},{name:"ASCENDAS PARK SQUARE"},{name:"BANER
 
 };
 $(function(){
-	ko.applyBindings(citiesDB);
-	
-});
+	/*ko.applyBindings(citiesDB); */
 
+});
