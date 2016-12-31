@@ -1,51 +1,51 @@
 
 
 $(function() {
-		
-		
 
-	
+
+
+
 		onLoad();
 		// Tabs
 		var $tabs = $('#tabscollection1').tabs();
 		$tabs.bind("tabsselect", function (event, ui){
 			if ( ui.panel.id == "CategoryMembership"){
-				
+
 				if (storeListViewModel.store().id){
 					var id = storeListViewModel.store().categoryId;
 					if (id){
 						categoryListViewModel.getCategory(id);
 					}
-					
+
 					categoryListViewModel.query("");
 					categoryListViewModel.search();
-					
+
 				}else {
 					alert("Please select a Store");
 					return false;
 				}
-			
-				
-				
+
+
+
 			}
-			
+
 		});
-		
+
 		$( "#sortable2" ).bind( "sortstop", function(event, ui) {
 			$(ui.item).find("button").click();
-			
+
 		});
-		
+
 		$("#citySelect").change(function(){
 			alert($("#citySelect").val());
 		});
 		$("#citySelect").click(function(){
 			alert("clicked");
 		});
-		
-		
+
+
 		$("#sortable1,#sortable2").sortable({revert:'invalid', connectWith: ".connectedSortable",cursor:"move", helper:'clone'}).disableSelection();
-		
+
 		$("#storeform").validate({
 			submitHandler : function() {
 				storeListViewModel.save();
@@ -80,12 +80,13 @@ $(function() {
 				}
 			}
 		});
+
 		
 		$(".addButton").button({icons:{primary:"ui-icon-circle-plus"},text:false});
 		$(".deleteButton").button({icons:{primary:"ui-icon-circle-close"},text:false});
 
-		
-		
+
+
 		$(".geofield").autocomplete({
 			source: function( request, response ) {
 				console.log("testing" + request);
@@ -120,12 +121,12 @@ $(function() {
 				$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
 			}
 		});
-		
+
 		$('#add').click(function() {
 			$tabs.tabs('select', 1);
-			
+
 			storeListViewModel.store(new store());
-		
+
 			return false;
 
 		});
@@ -165,9 +166,9 @@ $(function() {
 			},
 			close : function(event, ui) {
 				if (infowindow != null){
-					infowindow.close();	
+					infowindow.close();
 				}
-				
+
 				google.maps.event.trigger(map, 'resize');
 			}
 		});
@@ -175,8 +176,8 @@ $(function() {
 		$("#map").dialog("option", "width", 700);
 
 		$("button").button();
-		
-		
+
+
 		$( "#searchinput" ).autocomplete({
 			source: function( request, response ) {
 				$.ajax({
@@ -187,7 +188,7 @@ $(function() {
 						action:"searchasyouType"
 					},
 					success: function( data ) {
-	
+
 						if (data.data.length > 0 ) {
 						response( $.map(data.data, function( item ) {
 							return {
@@ -214,7 +215,7 @@ $(function() {
 				$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
 			}
 		});
-		
+
 
 	});
 
@@ -227,27 +228,27 @@ $(function() {
 			this.phones=  new ko.observableArray([{number:""}]);
 			this.deliveryDistance="";
 			this.addresses= [new address()];
-			this.allowStorePayment=false; 
-			this.allowOrderModification=false; 
+			this.allowStorePayment=false;
+			this.allowOrderModification=false;
 			this.multipleStores=false;
 			var edit =function (){
 				return this;
 			};
 			this.categoryId = "";
-			
+
 	}
 
 var address= function() {
-	this.addressline1=""; 
+	this.addressline1="";
 	this.addressline2="";
 	this.city="";
 	this.state=ko.observable("");
-	this.zip="560103"; 
+	this.zip="560103";
 	this.country="India";
 	this.lat=1.01;
 	this.lng=1.01;
 };
-	
+
 function updateOptions(aCity,aAddress){
 	 cityObj =	ko.utils.arrayFirst(citiesDB.cities(),function(item){
 			if( item.name === aCity) return item;
@@ -260,7 +261,7 @@ function updateOptions(aCity,aAddress){
 }
 
 var  storeListViewModel = {
-		
+
 		stores: new ko.observableArray(),
 		status: ko.observable(),
 		store:  ko.observable(new store()),
@@ -275,7 +276,7 @@ var  storeListViewModel = {
 			    	url:"/store",
 			    	data:"action=index",
 		            type: "post",
-		            success: function(result) { 
+		            success: function(result) {
 		        		storeListViewModel.status(result);
 		            }
 		        });
@@ -296,15 +297,15 @@ var  storeListViewModel = {
 					addressObj.zip=item.zip;
 					addressObj.country=item.country;
 					addressObj.lat=item.lat;
-					addressObj.lng=item.lng; 
+					addressObj.lng=item.lng;
 					return addressObj;
 			    });
 				storedata.allowStorePayment =data[i].allowStorePayment;
 				storedata.allowOrderModification = data[i].allowOrderModification;
 				storedata.multipleStores = data[i].multipleStores;
 				storedata.categoryId = data[i].categoryId;
-				
-				
+
+
 				storeListViewModel.stores.push( storedata );
 			 }
 		},
@@ -321,7 +322,7 @@ var  storeListViewModel = {
 		        			//getting the data from the response object
 		        			//storeListViewModel.status(resp);
 		        			data=resp.data;
-		        		
+
 			        		if(data.length > 0){
 			        			storeListViewModel.stores.removeAll();
 			        			storeListViewModel.stores.valueHasMutated();
@@ -329,7 +330,7 @@ var  storeListViewModel = {
 			        			storeListViewModel.status("");
 		        		    }
 			        		else {
-			        			 
+
 			        			storeListViewModel.stores.removeAll();
 				        		storeListViewModel.stores.valueHasMutated();
 				        		storeListViewModel.status("No records to display");
@@ -345,12 +346,12 @@ var  storeListViewModel = {
 			  			storeListViewModel.status(errortxt);
 			  		}
 		        });
-			
+
 		},
-		
+
 		search: function(){
 			   var mydata = ko.toJS({query:this.query,action:"search"});
-			  
+
 			  $.ajax({
 			    	url:"/store",
 			    	dataType: "json",
@@ -368,9 +369,9 @@ var  storeListViewModel = {
 		        			storeListViewModel.stores.removeAll();
 		        			storeListViewModel.stores.valueHasMutated();
 		        			storeListViewModel.map(data);
-		  		   			storeListViewModel.status("");	
+		  		   			storeListViewModel.status("");
 		        		}else {
-		        			 
+
 		        			storeListViewModel.stores.removeAll();
 			        		storeListViewModel.stores.valueHasMutated();
 			        		storeListViewModel.status("No records to display");
@@ -381,9 +382,9 @@ var  storeListViewModel = {
 			  			storeListViewModel.status(errortxt);
 			  		}
 		        });
-			
+
 		},
-	 	addEmail: function(emails){ 
+	 	addEmail: function(emails){
 	 		emails.push({emailaddress:""});
 	 	},
 	 	addPhone: function(phones){
@@ -398,7 +399,7 @@ var  storeListViewModel = {
 	    },
 	    edit: function(storeobject){
 	    	this.store(storeobject);
-	    	updateOptions(this.store().addresses[0].city,this.store().addresses[0]);	
+	    	updateOptions(this.store().addresses[0].city,this.store().addresses[0]);
 	    	return false;
 	    },
 	    deletestore:function(store){
@@ -407,8 +408,8 @@ var  storeListViewModel = {
 		    	url:"/store",
 	            data: "id="+id+"&action=delete",
 	            type: "post",
-	            success: function(result) { 
-	            storeListViewModel.status("Store with Store id" + id + " deleted successfully"); 
+	            success: function(result) {
+	            storeListViewModel.status("Store with Store id" + id + " deleted successfully");
 	            },
 	                error:function(jqhr,options, errorText ){
 			  			errortxt = "Status:" + jqhr.status + " Options:" + options + " Error Text " + errorText;
@@ -417,7 +418,7 @@ var  storeListViewModel = {
 	        });
 	    },
 	    makeStoreCategory: function(category,aStoreid){
-	    
+
 	 	   var mydata = ko.toJS({storeid:aStoreid,categoryid:category.id,action:"makeStoreCategory"});
 	 	  $.ajax({
 		    	url:"/store",
@@ -429,7 +430,7 @@ var  storeListViewModel = {
 	           	if(resp){
 	           		alert(resp);
 	       		}
-	           	
+
 	           },
 		  		error:function(jqxhr, e, errorText){
 		  			alert("error : "+ errorText);
@@ -444,7 +445,7 @@ var  storeListViewModel = {
 		    	url:"/store",
 	            data: "JSON="+mydata+"&action=PUT",
 	            type: "post",
-	            success: function(result) { 
+	            success: function(result) {
 	        		alert(result);
 	        		storeListViewModel.store(new store());
 	        		storeListViewModel.locations([]);
@@ -454,15 +455,15 @@ var  storeListViewModel = {
 			  			storeListViewModel.status(errortxt);
 			  		}
 	        });
-	    }  
+	    }
 	 };
-	 
+
 	storeListViewModel.gridViewModel = new ko.simpleGrid.viewModel({
 	    data: storeListViewModel.stores,
 	    columns: [{headerText:"Edit",action:"Edit", rowLink:function(storeObj){
-	    	$('#tabscollection1').tabs('select',1); 
+	    	$('#tabscollection1').tabs('select',1);
 	    	storeListViewModel.edit(storeObj);
-	    
+
 	    }},
 	              {headerText:"Delete",action:"Delete",rowText:"", rowLink:function(store){storeListViewModel.deletestore(store)}},
 	        { headerText: "Store Name",action:"", rowText: "storeName",rowLink:"" },
@@ -484,11 +485,11 @@ var  storeListViewModel = {
 	      		}
 	      		phonedata = phonedata.substr(0,(phonedata.length-1));
 	      		return phonedata;
-	        	
+
 	        },rowLink:"" },
 	   	     { headerText: "CategoryId",action:"", rowText: function(storeObj){
 		      		return storeObj.categoryId;
-		        	
+
 		        },rowLink:"" }
 
 	     ],
@@ -496,11 +497,11 @@ var  storeListViewModel = {
 	});
 
 $(function(){
-	 
+
 	ko.applyBindings(storeListViewModel);
-	
-	
-	
-	
-	
+
+
+
+
+
 });
