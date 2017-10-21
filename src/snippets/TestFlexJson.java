@@ -3,7 +3,7 @@ package snippets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.sun.tools.javac.util.List;
+import java.util.List;
 
 import flexjson.JSONSerializer;
 
