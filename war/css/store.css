@@ -14,3 +14,8 @@
 .draggable span{
 	cursor:"move";
 }
+
+#map-canvas {
+    height: 400px;
+		width: 550px
+}

@@ -59,17 +59,17 @@
 				</div> <!-- end .navbar-default .nav-fixed-top -->
 
 					<div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav  nav-tabs">
+          <ul class="nav  nav-tabs ">
         		<li><a  data-toggle="tab" class="active" href="#tabs-1">Search Store </a></li>
 				<li><a data-toggle="tab" href="#tabs-2">Add or Edit Store </a></li>
 				<li><a data-toggle="tab" href="#CategoryMembership">Category Membership </a></li>
 			 <li>
 				 <form class="navbar-form navbar-right">
 				             <div class="form-group">
-				               <input type="text" placeholder="Email" class="form-control">
+				               <input type="text" placeholder="Email" class="form-control form-control-lg">
 				             </div>
 				             <div class="form-group">
-				               <input type="password" placeholder="Password" class="form-control">
+				               <input type="password" placeholder="Password" class="form-control form-control-lg">
 				             </div>
 				             <button type="submit" class="btn btn-success">Sign in</button>
 				</form>
@@ -84,66 +84,92 @@
   <div id="tabscollection1" class="tab-content">
 			<div id="tabs-1" class="tab-pane fade in active" >
 				  	<div class="panel-heading">
-							<h3 class="panel-title">Search Store</h3>
+							<h1 class="panel-title">Search Store</h1>
 						</div>
 							<div class="input-group">
 								<form name="searchStore">
 								<input id="searchinput"   data-bind="value: storeListViewModel.query,valueUpdate:'afterkeydown'" id="searchinput" type="search">
-							 	<button class="btn btn-default"  data-bind="click:storeListViewModel.search">Search</button>
-								<button  class="btn btn-default"  data-bind="click:storeListViewModel.searchusinglucene">Search using lucene</button>
-								<button class="btn btn-default"  id="add">Add</button>
-								<button  class="btn btn-default" data-bind="click:storeListViewModel.index"> Index all</button>
+							 	<button class="btn btn-default btn-primary"  data-bind="click:storeListViewModel.search">Search</button>
+								<button  class="btn btn-default btn-primary"  data-bind="click:storeListViewModel.searchusinglucene">Search using lucene</button>
+								<button class="btn btn-default btn-primary"  id="add">Add</button>
+								<button  class="btn btn-default btn-primary" data-bind="click:storeListViewModel.index"> Index all</button>
 								</form>
 							</div> <!-- End of input group  -->
 								<div data-bind="text: status"> </div>
 								<div data-bind="simpleGrid: storeListViewModel.gridViewModel"> </div>
 			</div> <!--  end of tab1 -->
-			<div id="tabs-2" class="tab-pane fade">
+			<div id="tabs-2" class="tab-pane fade panel-default panel-primary">
 				<div class="panel-heading">
-												<h3 class="panel-title"> Add or Edit Store</h3>
+												<h1 class="panel-title"> Add or Edit Store</h1>
 						</div>
+<div class="panel-body">
+				<form id="storeform"   >
+					<div  class="alert alert-info" role="alert" id="status">Press 'Show on Map' or Locate me to find your location.</div>
 
-				<form id="storeform"  >
-
-				<div class="input-group">
-
-					<button class="btn btn-default"  data-bind="click:function(){$('#storeform').submit();}"  id="savebutton" >Save</button>
-					<button class="btn btn-default" id="locate" class="locate"> Show on Map</button>
-					<button  class="btn btn-default" id="geolocate" class="geolocate"> Locate Me</button>
-					<button class="btn btn-default"  id="geocodeAddress" class="geocodeAddress">Geocode Address</button>
+					<div id="buttons" class="container" >
+				<div class="row">
+           <div class="col col-xs-2">
+					<button class="btn btn-default btn-primary"  data-bind="click:function(){$('#storeform').submit();}"  id="savebutton" >Save</button>
 				</div>
+				<div class="col col-xs-2">
+					<button class="btn btn-default btn-primary locate" id="locate" data-toggle="modal" data-target="#gmapsModal"> Show on Map</button>
+				</div>
+						<div class="col col-xs-2">
+					<button  class="btn btn-default btn-primary geolocate" id="geolocate" data-toggle="modal" data-target="#gmapsModal" > Locate Me</button>
+				</div>
+					<div class="col col-xs-2">
+					<button href="#gmapsModal" class="btn btn-default btn-primary geocodeAddress"  id="geocodeAddress" data-toggle="modal" data-target="#gmapsModal" >Geocode</button>
+				</div>
+			 </div>
+		</div>
 
-					<div id="status">Press 'Show on Map' or Locate me to find your location.</div>
+
+
 					<div id="store" data-bind='with:storeListViewModel.store'>
  					<div id="mainStoreDiv" >
 						<legend> Basic Store Details</legend>
-						<fieldset>
-						<div class="input-group input-group-lg">
-								<span class="label label-primary form-control" > Store Name:  <em>*</em></span>
-								<input  class="required form-control" type="text" id="storeName" name="storeName"
-									required="required" data-bind="value: storeName" placeholder="Store Name"  />
-						</div>
 
-							<div class="input-group input-group-lg">
-								<span class="label label-primary form-control"  id="basic-addon-desc">Store Description:  <em>*</em></span>
-							<input class="required form-control" type="text" id="storeDesc"  name="storeDesc" required="required"
+						<div class="input-group input-group-lg form-group row ">
+								<label class="col-xs-2 col-form-label col-form-label-lg" for="storeName"> Store Name:  <em>*</em></label>
+								<div class="col-xs-10">
+									<input  class="required form-control form-control-lg" type="text" id="storeName" name="storeName"
+									required="required" data-bind="value: storeName" placeholder="Store Name"  />
+									<small  id="Storenamehelpline" class="text-muted">
+										Must be 8-20 characters long.
+									</small>
+								</div>
+							<label class="col-md-2 col-form-label col-form-label-lg" for="storeDesc">
+								Store Description:  <em>*</em></label>
+								<div class="col-md-10">
+							 <input class="required form-control form-control-lg" type="text" id="storeDesc"  name="storeDesc" required="required"
 								data-bind="value: storeDesc"
 								placeholder="Store Description" />
+								<small  id="Storenamehelpline" class="text-muted">
+									Must be 8-20 characters long.
+								</small>
 							</div>
-							<div class="input-group input-group-lg">
-								<span class="label label-primary form-control"  id="basic-addon-manager">Manager Name:  <em>*</em></span>
-							<input type="text" id="managerName"  name="managerName" class="required form-control" required="required"
+
+								<label class="col-sm-2 col-form-label col-form-label-lg" for="managerName"> Manager Name:  <em>*</em> </label>
+							<div class="col-sm-10">
+							<input type="text" id="managerName"  name="managerName" class="required form-control form-control-lg" required="required"
 								data-bind="value: managerName" placeholder="Manager Name" />
+								<small  id="Storenamehelpline" class="text-muted">
+									Must be 8-20 characters long.
+								</small>
 							</div>
-							<div class="input-group input-group-lg">
-								<span class="label label-primary form-control"  id="basic-addon-emails">Emails:  <em>*</em></span>
+
+								<label class="col-sm-2 col-form-label col-form-label-lg" for="emailaddress" >Emails:  <em>*</em></label>
+								<div  class="col-sm-10">
 									<div  data-bind="foreach:emails">
 									<div class="row">
 											<div class="col-lg-10">
-												<input class="required form-control" id="emailadress" name="emailaddress"  required="required" type="email" data-bind="value: emailaddress" placeholder="Store Email" />
+												<input class="required form-control form-control-lg" id="emailaddress" name="emailaddress"  required="required" type="email" data-bind="value: emailaddress" placeholder="Store Email" />
+												<small  id="Storenamehelpline" class="text-muted">
+													Must be with a @ sign .
+												</small>
 											</div>
 												<div class="col-lg-2" >
-														<a  class="glyphicon glyphicon-minus-sign btn btn-default btn-sm" href="#"
+														<a  class="glyphicon glyphicon-minus-sign btn btn-default btn-sm btn-primary" href="#"
 														data-bind="click: function() { storeListViewModel.removeEmail($data) },visible: (storeListViewModel.store().emails().length > 1)" >
 														Delete
 													</a>
@@ -151,109 +177,115 @@
 										</div>
 									</div>
 									<div>
-										<a class="glyphicon glyphicon-plus-sign btn btn-default btn-sm" href="#"  id="add"  data-bind="click: function(){storeListViewModel.addEmail(emails)}">Add</a>
+										<a class="glyphicon glyphicon-plus-sign btn btn-default btn-sm btn-primary" href="#"  id="add"  data-bind="click: function(){storeListViewModel.addEmail(emails)}">Add</a>
 									</div>
 							</div>
-		<div class="input-group input-group-lg">
-			<span class="label label-primary form-control" id="basic-addon-phones">Store Phones:  <em>*</em>	</span>
+					<label class="col-sm-2 col-form-lable col-form-label-lg" for="number">Store Phones:  <em>*</em>	</label>
+					<div  class="col-sm-3">
 
 						<div data-bind="foreach:phones">
 							<div class="row">
 							<div class="col-lg-10">
-							<input id="number" class="required form-control" name="number"  required="required"
+							<input id="number" class="required form-control form-control-lg" name="number"  required="required"
 								maxlength="10" type="number"  data-bind="value: number"
 								placeholder="Store Phone number" />
+								<small  id="Storephonehelpline" class="text-muted">
+									Must be 10 Digits.
+								</small>
 							</div>
 							<div class="col-lg-2">
-							<a class="glyphicon glyphicon-minus-sign btn btn-default btn-sm href="#" data-bind="click: function() { storeListViewModel.removePhone( $data) },visible: (storeListViewModel.store().phones().length > 1)">Del</a>
+							<a class="glyphicon glyphicon-minus-sign btn btn-default btn-sm btn-primary" href="#" data-bind="click: function() { storeListViewModel.removePhone( $data) },visible: (storeListViewModel.store().phones().length > 1)">Del</a>
 						</div>
 					</div>
 				</div>
 						<div >
-						<a  class="glyphicon glyphicon-plus-sign btn btn-default btn-sm" href="#"  id="add"  data-bind="click: function() { storeListViewModel.addPhone(phones) }">Add
+						<a  class="glyphicon glyphicon-plus-sign btn btn-default btn-sm btn-primary" href="#"  id="add"  data-bind="click: function() { storeListViewModel.addPhone(phones) }">Add
 						</a>
 						</div>
 				</div>
 
-				<div class="input-group input-group-lg">
-					<span class="label label-primary form-control" id="basic-addon-distance">Maximum Delivery Distance:  <em>*</em>	</span>
-
-				<input  class="form-control" id="distance" name="distance" type="number" min="1" max="10"
+					<label class="col-sm-2 col-label-form col-label-form-lg" for="distance">Maximum Delivery Distance:  <em>*</em>	</label>
+					<div class="col-sm-2">
+				<input  class="form-control form-control-lg" id="distance" name="distance" type="number" min="1" max="10"
 								step="1" value="1" data-bind="value: deliveryDistance"
 								placeholder="Delivery Distance" />
+								<small  id="deliveryDistancehelpline" class="text-muted">
+									Must be 10 Digits.
+								</small>
 				</div>
-				</fieldset>
+			</div>
 				</div> <!--  end of mainStoreDiv -->
 	<div id="AddressDiv" class="logo" data-bind="foreach:addresses">
 						<legend> Address</legend>
-						<fieldset >
-								<div class="input-group input-group-lg">
-									<span class="label label-primary form-control" id="basic-addon-addressline1">Address Line 1:  <em>*</em>	</span>
 
-								<input id="addressline1" class="required form-control" type="text"  name="addressline1" required="required" data-bind="value: addressline1"
+								<div class="form-group row input-group input-group-lg">
+									<label class="col-sm-2 col-label-form col-label-form-lg" id="basic-addon-addressline1">Address Line 1:  <em>*</em>	</label>
+									<div class="col-sm-10">
+								<input id="addressline1" class="required form-control form-control-lg" type="text"  name="addressline1" required="required" data-bind="value: addressline1"
 									placeholder="Street address 1" />
 								</div>
 
-								<div class="input-group input-group-lg">
-									<span class="label label-primary form-control" id="basic-addon-city">City:  <em>*</em>	</span>
-							  	<select   class="required form-control" data-bind="event:{change:function(data,event){storeListViewModel.cityChanged($data)}} ,template:{name: 'cityTemplate',data:citiesDB},value:city"  style="width:232px" id="citySelect" >
+									<label class="col-sm-2 col-label-form col-label-form-lg" id="basic-addon-city">City:  <em>*</em>	</label>
+									<div class="col-sm-10">
+							  	<select   class="required form-control form-control-lg" data-bind="event:{change:function(data,event){storeListViewModel.cityChanged($data)}} ,template:{name: 'cityTemplate',data:citiesDB},value:city"  style="width:232px" id="citySelect" >
 								</select>
 								</div>
-								<div  class="input-group input-group-lg">
-									<span class="label label-primary form-control" >Locality:  <em>*</em>	</span>
-
-								<select  class="form-control" data-bind="options:storeListViewModel.locations,value:addressline2"  style="width:232px"  id="addressline2"   name="addressline2" >
+									<label class="col-sm-2 col-label-form col-label-form-lg" >Locality:  <em>*</em>	</label>
+									<div class="col-sm-10">
+								<select  class="form-control form-control-lg" data-bind="options:storeListViewModel.locations,value:addressline2"  style="width:232px"  id="addressline2"   name="addressline2" >
 								</select>
 								</div>
-								<div  class="input-group input-group-lg">
-									<span class="label label-primary form-control" >State:  <em>*</em>	</span>
-								<input class="form-control" id="state" name="state" type="text" disabled="disabled" data-bind="value:state" />
+									<label class="col-sm-2 col-label-form col-label-form-lg" >State:  <em>*</em>	</label>
+									<div class="col-sm-10">
+								<input class="form-control form-control-lg" id="state" name="state" type="text" disabled="disabled" data-bind="value:state" />
 								</div>
-								<div class="input-group input-group-lg">
-									<span class="label label-primary form-control" >Zip:  <em>*</em>	</span>
-
-								<input class="required form-control" id="zip" name="zip" type="number" size="20" max="999999" maxlength="6"
+								<label class="col-sm-2 col-label-form col-label-form-lg" >Zip:  <em>*</em>	</label>
+									<div class="col-sm-10">
+								<input class="required form-control form-control-lg" id="zip" name="zip" type="number" size="20" max="999999" maxlength="6"
 									required="required" data-bind="value: zip"
 									placeholder="Postal Code" />
 								</div>
 
-								<div class="input-group input-group-lg">
-									<span class="label label-primary form-control" >Country:  <em>*</em>	</span>
 
-								<input disabled="disabled" class="required form-control" type="text"  id="country" name="country" value="India" required="required"
+									<label class="col-sm-2 col-label-form col-label-form-lg" >Country:  <em>*</em>	</label>
+									<div class="col-sm-10">
+								<input disabled="disabled" class="required form-control form-control-lg" type="text"  id="country" name="country" value="India" required="required"
 									data-bind="value: country" placeholder="Country" /><br>
 								</div>
-								<div class="input-group input-group-lg">
-									<span class="label label-primary form-control" >Latitude:  <em>*</em>	</span>
-   								<input class="form-control" id='lat' data-bind="value:lat" type="number" size='20'   name='lat'  style="background-color: #eee" readonly />
-								</div>
-								<div class="input-group input-group-lg">
-									<span class="label label-primary form-control" >Longitude:  <em>*</em>	</span>
-									<input class="form-control" id='lng' data-bind="value:lng" type="number" size='20' name='lng'  style="background-color: #eee" readonly />
-								</div>
-							</fieldset>
 
-						<legend> Additional Store Parameters</legend>
-						<fieldset>
-						<div class="input-group input-group-lg">
-							<span class="input-group-addon" >
+									<label class="col-sm-2 col-label-form col-label-form-lg" >Latitude:  <em>*</em>	</label>
+									<div class="col-sm-10">
+   								<input class="form-control form-control-lg" id='lat' data-bind="value:lat" type="number" size='20'   name='lat'  style="background-color: #eee" readonly />
+								</div>
+								<label class="col-sm-2 col-label-form col-label-form-lg" >Longitude:  <em>*</em>	</label>
+								<div class="col-sm-10">
+										<input class="form-control form-control-lg" id='lng' data-bind="value:lng" type="number" size='20' name='lng'  style="background-color: #eee" readonly />
+								</div>
+							</div>
+								<div id="additional-store-parameter">
+						   <legend> Additional Store Parameters</legend>
+							 <div class="input-group input-group-lg form-group row ">
+
+						   <div class="col-sm-10">
+							<label class="input-group-addon" >
 								<input id="check1"  name="isStorePaymentallowed" type="checkbox" data-bind="checked: store.allowStorePayment" >
-							</span>
-						<span class="label label-default form-control"> is Store Payment Allowed ?  <em>*</em>	</span>
+							</label>
+						<label class="label label-default form-control form-control-lg"> is Store Payment Allowed ?  <em>*</em>	</label>
 						</div>
-						<div class="input-group input-group-lg">
-							<span class="input-group-addon">
+						<div class="col-sm-10">
+							<label class="input-group-addon">
 							<input aria-label="Order Modification Allowed Yes/No" id="check2" name="ordermodificationallowed" type="checkbox" data-bind="checked: store.allowOrderModification" >
-						</span>
-						<span class="label label-default form-control"> Order Modification Allowed ? <em>*</em></span>
+						</label>
+						<label class="label label-default form-control form-control-lg"> Order Modification Allowed ? <em>*</em></label>
 
 						</div>
-						<div class="input-group input-group-lg">
+						<div class="col-sm-10">
 								<span class="input-group-addon" id="basic-addon-multi">
 						<input id="check3" name="multistore" type="checkbox" data-bind="checked: store.multipleStores" ></span>
-							<span class="label label-default form-control"> Multi Stores ?<em>*</em>	</span>
+							<span class="label label-default form-control form-control-lg"> Multi Stores ?<em>*</em>	</span>
 						</div>
-						</fieldset>
+					</div>
+					</div>
 			</div>	<!--  end of Address Div  -->
 
 		</div> <!--  End of Store main Div -->
@@ -263,11 +295,27 @@
 					<div class="logo" > <ul id="messageBox"></ul> </div>
 					<div class="rightalign"></div>
 					<div class="wrap"></div>
-					<button class="btn btn-default"  type="submit"  id="savebutton" >Save</button>
-					<button class="btn btn-default"  id="locate" class="locate"> Show on Map</button>
-					<button class="btn btn-default"  id="geolocate" class="geolocate"> Locate Me</button>
-					<button class="btn btn-default" id="geocodeAddress" class="geocodeAddress">Geocode Address</button>
+					<div id="buttons" class="container" >
+				<div class="row">
+					 <div class="col col-xs-2">
+					<button class="btn btn-default btn-primary"  data-bind="click:function(){$('#storeform').submit();}"  id="savebutton" >Save</button>
+				</div>
+				<div class="col col-xs-2">
+					<button class="btn btn-default btn-primary" id="locate" class="locate"> Show on Map</button>
+				</div>
+						<div class="col col-xs-2">
+					<button  class="btn btn-default btn-primary" id="geolocate" class="geolocate"> Locate Me</button>
+				</div>
+					<div class="col col-xs-2">
+					<button class="btn btn-default btn-primary"  id="geocodeAddress" class="geocodeAddress">Geocode Address</button>
+				</div>
+				</div>
+				</div>
+
+
 				</form>
+			</div> <!-- end of panel body -->
+			<div class="panel-footer">&copy;AdjointWeb All Rights Reserved</div>
 
 			</div> <!--  end of tab2 -->
 
@@ -323,7 +371,30 @@
 
 </div><!-- end of container-fluid -->
 
-	<div id="map"  title="Address Map" ></div>
+	<div id="gmapsModal"  class="modal fade"  title="Address Map" >
+		<div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Google Maps View Store</h4>
+	      </div>
+	      <div id="googlemap" class="modal-body">
+					<div class="container">
+						<div class="row">
+							<div id="map-canvas"></div>
+						</div>
+					</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+
+	</div>
 
 	<script id="cityTemplate" type="text/html" >
 		<option {{if storeListViewModel.store().addresses[0].city == ""}} selected="selected"{{/if}} >Choose..</option>
@@ -332,9 +403,6 @@
 		{{/each}}
 	</script>
 
-
-<script type="text/javascript"
-	src='script/jquery-ui-1.8.16.custom.min.js'> </script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 

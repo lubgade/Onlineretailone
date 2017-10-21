@@ -8,7 +8,7 @@ var prev_pin = null;
 var geocoder;
 var infowindow =null;
 function onLoad() {
-	if (typeof google === "undefined"){ 
+	if (typeof google === "undefined"){
 	 return;
 	}
 	geocoder = new google.maps.Geocoder();
@@ -18,14 +18,28 @@ function onLoad() {
 	      center: latlng,
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	    }
-	 map = new google.maps.Map(document.getElementById("map"), myOptions);
-	 
+	 map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
 	google.maps.event.addListener(map, 'click', function(event) {
 		addMarker(event.latLng);
  	   });
-	
+
 
  }
+ google.maps.event.addDomListener(window, 'load', onLoad);
+
+function resizeMap() {
+    if(typeof map =="undefined") return;
+    setTimeout( function(){resizingMap();} , 200);
+ }
+
+ function resizingMap() {
+    if(typeof map =="undefined") return;
+    var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(center);
+ }
+
 
 function handleNoGeolocation(errorFlag) {
     if (errorFlag) {
@@ -45,24 +59,24 @@ function handleNoGeolocation(errorFlag) {
   }
 
 function addMarker(location){
-		if (prev_pin) { 
-			prev_pin.setMap(null); 
-			prev_pin = null; 
-		} 
-		if (location) { 
-			pin = new google.maps.Marker({position:location,map:map,animation:google.maps.Animation.BOUNCE}); 
-			prev_pin = pin; 
+		if (prev_pin) {
+			prev_pin.setMap(null);
+			prev_pin = null;
+		}
+		if (location) {
+			pin = new google.maps.Marker({position:location,map:map,animation:google.maps.Animation.BOUNCE});
+			prev_pin = pin;
  			latDiv = document.getElementById('lat');
 			lngDiv = document.getElementById('lng');
 			storeListViewModel.store().addresses[0].lat = location.lat();
 			storeListViewModel.store().addresses[0].lng = location.lng();
 			lngDiv.value = location.lng();
 			latDiv.value = location.lat();
-		} 
+		}
 }
 function geolocateme(){
 	 // Try HTML5 geolocation
-	
+
 	if(navigator.geolocation) {
 	      navigator.geolocation.getCurrentPosition(function(position) {
 	        var pos = new google.maps.LatLng(position.coords.latitude,
@@ -73,7 +87,7 @@ function geolocateme(){
 	          position: pos,
 	          content: 'We found your location'
 	        });
-	        addMarker(pos);	
+	        addMarker(pos);
 	        map.setCenter(pos);
 	      }, function() {
 	        handleNoGeolocation(true);
@@ -81,21 +95,21 @@ function geolocateme(){
 	      return true;
 	    } else {
 	    	// Browser doesn't support Geolocation
-	    	 
+
 	    	handleNoGeolocation(false);
 	    }
 }
 
 function lookupLocation(pos) {
 if (pos){
-	addMarker(pos);	
+	addMarker(pos);
 	infowindow = new google.maps.InfoWindow({
         map: map,
         position: pos,
         content: 'Currently mapped Location'
       });
     map.setCenter(pos);
-}	  
+}
 else{
     var street = document.getElementById("addressline1").value ;
     var addressline2 =document.getElementById("addressline2").value ;
@@ -105,16 +119,16 @@ else{
         alert("At least fill in the addressline1,addressline2 city and state,");
         return false;
      }
-	if (prev_pin) { 
-		prev_pin.setMap(null); 
-		prev_pin = null; 
+	if (prev_pin) {
+		prev_pin.setMap(null);
+		prev_pin = null;
 	}
 	var htmlstatus = document.getElementById('status');
 	var prev_status = htmlstatus.innerHTML;
 	htmlstatus.innerHTML = "looking up address...please wait...";
 	var address = street + "," + addressline2 + "," + city + "," + state;
     geocoder.geocode( { 'address': address}, function(results, status) {
-    	
+
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
         addMarker(results[0].geometry.location);
@@ -125,6 +139,6 @@ else{
       }
     });
 	}
-    
+
     return true;
   }

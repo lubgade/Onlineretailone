@@ -5,7 +5,7 @@ $(function() {
 
 
 
-		onLoad();
+	//	onLoad();
 		// Tabs
 		var $tabs = $('#tabscollection1').tabs();
 		$tabs.bind("tabsselect", function (event, ui){
@@ -30,6 +30,13 @@ $(function() {
 			}
 
 		});
+
+		$('#gmapsModal').on('shown.bs.modal', function() {
+				alert("Showing modal");
+	     //Must wait until the render of the modal appear, thats why we use the resizeMap and NOT resizingMap!! ;-)
+	     resizeMap();
+	  })
+
 
 		$( "#sortable2" ).bind( "sortstop", function(event, ui) {
 			$(ui.item).find("button").click();
@@ -81,10 +88,6 @@ $(function() {
 			}
 		});
 
-		
-		$(".addButton").button({icons:{primary:"ui-icon-circle-plus"},text:false});
-		$(".deleteButton").button({icons:{primary:"ui-icon-circle-close"},text:false});
-
 
 
 		$(".geofield").autocomplete({
@@ -124,7 +127,7 @@ $(function() {
 
 		$('#add').click(function() {
 			$tabs.tabs('select', 1);
-
+			console.log("add store clicked");
 			storeListViewModel.store(new store());
 
 			return false;
@@ -132,14 +135,16 @@ $(function() {
 		});
 		$('.geolocate').click(function() {
 			geolocateme();
-			$("#map").dialog("open");
+			$("#gmapsModal").modal("show");
 			return false;
 		});
 
 		$('.geocodeAddress').click(function() {
 			var position;
+
 			if (lookupLocation(position)) {
-				$("#map").dialog("open");
+				console.log("opening model");
+				$("#gmapsModal").modal('show');
 			}
 			return false;
 		});
@@ -152,30 +157,10 @@ $(function() {
 				position = new google.maps.LatLng(lat, lng);
 			}
 			if (lookupLocation(position)) {
-				$("#map").dialog("open");
+				$("#gmapsModal").modal("show");
 			}
 			return false;
 		});
-		$("#map").dialog({
-			autoOpen : false,
-			resizeStop : function(event, ui) {
-				google.maps.event.trigger(map, 'resize')
-			},
-			open : function(event, ui) {
-				google.maps.event.trigger(map, 'resize');
-			},
-			close : function(event, ui) {
-				if (infowindow != null){
-					infowindow.close();
-				}
-
-				google.maps.event.trigger(map, 'resize');
-			}
-		});
-		$("#map").dialog("option", "height", 530);
-		$("#map").dialog("option", "width", 700);
-
-		$("button").button();
 
 
 		$( "#searchinput" ).autocomplete({
